@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#002250',
-    padding: 20,
+    padding: 10,
     paddingTop:80,
     width:"100%",
     alignItems: 'center',
@@ -70,12 +70,14 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginBottom: 40,
+    width:"100%",
   },
   input: {
     backgroundColor: '#fff',
     borderRadius: 15,
     marginBottom: 10,
     height:60,
+    width: "100%",
     padding:4
   },
   button: {
