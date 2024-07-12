@@ -58,7 +58,8 @@ export const WelcomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#002244',
+    backgroundColor: '#002250',
+    width:'100%',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
@@ -73,6 +74,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#fff',
     marginBottom: 20,
+    textAlign:'center',
   },
   input: {
     width: '100%',

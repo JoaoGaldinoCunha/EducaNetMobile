@@ -42,7 +42,6 @@ export const WelcomeBackScreen = () => {
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Entre</Text>
       </TouchableOpacity>
-      <Text style={styles.link}>Forgot Password?</Text>
       <Text style={styles.link}>Não é registrado?</Text>
     </View>
   );
@@ -51,46 +50,52 @@ export const WelcomeBackScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#002244',
+    backgroundColor: '#002250',
     padding: 20,
+    paddingTop:80,
+    width:"100%",
     alignItems: 'center',
-    justifyContent: 'center',
+    textAlign:'center'
   },
   title: {
-    fontSize: 24,
+    fontSize: 29,
     fontWeight: 'bold',
     color: '#fff',
-    marginBottom: 20,
   },
   text: {
     color: '#fff',
-    marginBottom: 20,
+    marginBottom: 50,
     textAlign: 'center',
+    fontWeight:'light',
   },
   inputContainer: {
-    width: '100%',
-    marginBottom: 20,
+    marginBottom: 40,
   },
   input: {
     backgroundColor: '#fff',
-    padding: 10,
-    borderRadius: 5,
+    borderRadius: 15,
     marginBottom: 10,
+    height:60,
+    padding:4
   },
   button: {
-    backgroundColor: '#007bff',
-    padding: 15,
-    borderRadius: 5,
+    backgroundColor: '#00C2FF',
+    borderRadius: 15,
+    fontWeight:'bold',
+    width:'100%',
+    height:55,
+    justifyContent:'center',
+    alignItems:'center'
   },
   buttonText: {
     color: '#fff',
     fontWeight: 'bold',
-    textAlign: 'center',
+    fontSize:20
   },
   link: {
     color: '#fff',
     marginTop: 10,
-    textAlign: 'center',
+    textAlign: 'center',  
   },
 });
 
