@@ -1,11 +1,13 @@
 import React from 'react';
 import { StyleSheet, View, Text,Image,TouchableOpacity} from 'react-native';
 import Imagem from '../../../img/RegisterOrLogin.png'
-export const RegisterLoginScreen = () => {
+import { NavigationContainer } from '@react-navigation/native';
+
+export const RegisterLoginScreen = ({navigation}) => {
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.time}>9:41</Text>
       </View>
       <View style={styles.content}>
         <Image source={Imagem}/>
@@ -20,9 +22,9 @@ export const RegisterLoginScreen = () => {
         </Text>
         <View style={styles.buttons}>
         <TouchableOpacity style={styles.buttonLogin}>
-            <Text style={styles.buttonTextLogin}>Sign in</Text>
+            <Text style={styles.buttonTextLogin} onPress={ () => navigation.navigate('WelcomeBackScreen')}>Sign in</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonRegister}>
+          <TouchableOpacity style={styles.buttonRegister} onPress={ () => navigation.navigate('WelcomeRegister') }>
             <Text style={styles.buttonTextRegister}>Register</Text>
           </TouchableOpacity>
         </View>

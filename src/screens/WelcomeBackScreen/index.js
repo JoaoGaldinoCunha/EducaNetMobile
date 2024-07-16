@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-export const WelcomeBackScreen = () => {
+export const WelcomeBackScreen = ({navigation}) => {
     const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -39,10 +39,10 @@ export const WelcomeBackScreen = () => {
           value={password}
         />
       </View>
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Entre</Text>
+      <TouchableOpacity style={styles.button} onPress={ () => navigation.navigate('User')}>
+        <Text style={styles.buttonText} >Entre</Text>
       </TouchableOpacity>
-      <Text style={styles.link}>Não é registrado?</Text>
+      <Text style={styles.link}onPress={ () => navigation.navigate('WelcomeRegister')}> Não é registrado?</Text>
     </View>
   );
 };
@@ -95,9 +95,10 @@ const styles = StyleSheet.create({
     fontSize:20
   },
   link: {
+    marginTop:40,
+    fontSize: 16,
     color: '#fff',
-    marginTop: 10,
-    textAlign: 'center',  
+    textDecorationLine: 'underline',
   },
 });
 

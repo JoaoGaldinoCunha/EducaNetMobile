@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 
-export const WelcomeScreen = () => {
+export const WelcomeScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [cpf, setCpf] = useState('');
@@ -27,6 +27,11 @@ export const WelcomeScreen = () => {
         placeholder="Username"
         onChangeText={setUsername}
         value={username}
+      /><TextInput
+        style={styles.input}
+        placeholder="Last Name"
+        onChangeText={setUsername}
+        value={username}
       />
       <TextInput
         style={styles.input}
@@ -50,7 +55,7 @@ export const WelcomeScreen = () => {
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
         <Text style={styles.buttonText}>Registre-se</Text>
       </TouchableOpacity>
-      <Text style={styles.link}>Já é registrado?</Text>
+      <Text style={styles.link} onPress={() => navigation.navigate('WelcomeBackScreen')}>Já é registrado?</Text>
     </View>
   );
 };
@@ -59,13 +64,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#002250',
-    width:'100%',
+    width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
   },
   welcome: {
-    fontSize: 32,
+    fontSize: 42,
     fontWeight: 'bold',
     color: '#fff',
     marginBottom: 20,
@@ -74,11 +79,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#fff',
     marginBottom: 20,
-    textAlign:'center',
+    textAlign: 'center',
   },
   input: {
     width: '100%',
-    height: 50,
+    height:60,
     backgroundColor: '#fff',
     borderRadius: 10,
     paddingHorizontal: 20,
@@ -86,12 +91,13 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '100%',
-    height: 50,
+    height: 60,
     backgroundColor: '#00C2FF',
-    borderRadius: 10,
+    borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
+    marginTop:20,
   },
   buttonText: {
     fontSize: 18,
