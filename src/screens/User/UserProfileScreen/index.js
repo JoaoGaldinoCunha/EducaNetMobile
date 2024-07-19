@@ -13,27 +13,15 @@ export const UserProfileScreen = () => {
           <TextInput
             style={styles.input}
             placeholder="UserName"
-            onChangeText={(text) => setPassword(text)}
-            secureTextEntry
-            value={password}
           /><TextInput
             style={styles.input}
             placeholder="LastName"
-            onChangeText={(text) => setPassword(text)}
-            secureTextEntry
-            value={password}
           /><TextInput
             style={styles.input}
             placeholder="Email"
-            onChangeText={(text) => setPassword(text)}
-            secureTextEntry
-            value={password}
           /><TextInput
             style={styles.input}
             placeholder="Password"
-            onChangeText={(text) => setPassword(text)}
-            secureTextEntry
-            value={password}
           />
         </View>
       </View>
