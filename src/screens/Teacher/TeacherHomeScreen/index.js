@@ -1,9 +1,7 @@
-import {  View, Text} from 'react-native';
-
+import {  View, Text,Image} from 'react-native';
 export const TeacherHomeScreen = () => {
     return (
     <View>
-      <Text>Atividades do Professor</Text>
     </View>
   );
 };

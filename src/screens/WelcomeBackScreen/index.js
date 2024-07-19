@@ -39,7 +39,7 @@ export const WelcomeBackScreen = ({navigation}) => {
           value={password}
         />
       </View>
-      <TouchableOpacity style={styles.button} onPress={ () => navigation.navigate('User')}>
+      <TouchableOpacity style={styles.button} onPress={ () => navigation.navigate('Teacher')}>
         <Text style={styles.buttonText} >Entre</Text>
       </TouchableOpacity>
       <Text style={styles.link}onPress={ () => navigation.navigate('WelcomeRegister')}> Não é registrado?</Text>

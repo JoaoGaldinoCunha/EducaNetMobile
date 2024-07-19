@@ -7,15 +7,60 @@ import { TeacherPraticingScreen } from '../../screens/Teacher/TeacherPraticingSc
 import { TeacherProfileScreen } from '../../screens/Teacher/TeacherProfileScreen';
 import { TeacherVideoScreen } from '../../screens/Teacher/TeacherVideoScreen';
 
+import { Entypo, AntDesign, Ionicons } from '@expo/vector-icons'
 
 export const TeacherTab = () => {
     return (
-        <Tab.Navigator>
-            <Tab.Screen name='HOME' component={TeacherHomeScreen} />
-            <Tab.Screen name='PROFILIE' component={TeacherProfileScreen} />
-            <Tab.Screen name='PRATICING' component={TeacherPraticingScreen} />
-            <Tab.Screen name='COURSES' component={TeacherCourseScreen} />
-            <Tab.Screen name='VIDEO' component={TeacherVideoScreen} />
+        <Tab.Navigator
+        screenOptions={{
+            tabBarStyle:{
+                position:'absolute',
+                backgroundColor:"#ffffff"
+            }
+        }}
+            >
+            <Tab.Screen name='HOME' component={TeacherHomeScreen}
+                options={{
+                    tabBarIcon: ({ color, size }) => {
+                        return (
+                            <Ionicons name="home" size={size} color={color} />
+                        )
+                    }
+
+                }}
+            />
+            <Tab.Screen name='PROFILIE' component={TeacherProfileScreen}
+                options={{
+                    tabBarIcon: ({ color, size }) => {
+                        return (
+                            <Ionicons name="person" size={size} color={color} />)
+                    }
+                }}
+            />
+            <Tab.Screen name='PRATICING' component={TeacherPraticingScreen}
+                options={{
+                    tabBarIcon: ({ color, size }) => {
+                        return (
+                            <AntDesign name='edit' size={size} color={color} />)
+                    }
+                }}
+            />
+            <Tab.Screen name='COURSES' component={TeacherCourseScreen}
+                options={{
+                    tabBarIcon: ({ color, size }) => {
+                        return (
+                            <Ionicons name="book" size={size} color={color} />)
+                    }
+                }}
+            />
+            <Tab.Screen name='VIDEO' component={TeacherVideoScreen}
+            options={{
+                tabBarIcon:({color,size})=>{
+                    return(
+                        <Entypo name="video" size={size} color={color}/>                    )
+                }
+            }}
+            />
         </Tab.Navigator>
     )
 }
