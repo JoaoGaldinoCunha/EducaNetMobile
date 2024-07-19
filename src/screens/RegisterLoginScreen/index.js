@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text,Image,TouchableOpacity} from 'react-native';
 import Imagem from '../../../img/RegisterOrLogin.png'
-import { NavigationContainer } from '@react-navigation/native';
 
 export const RegisterLoginScreen = ({navigation}) => {
 
@@ -44,14 +43,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  time: {
-    color: 'white',
-    fontSize: 18,
-  },
   content: {
     flex:1,
     padding: 20,
-    paddingTop:30,
     alignItems: 'center',
   },
   title: {
@@ -59,7 +53,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
-    marginTop:80,
+    marginTop:60,
     textAlign:"center",
   },
   text: {
@@ -76,7 +70,7 @@ const styles = StyleSheet.create({
     padding: 15,
     borderBottomLeftRadius:10,
     borderTopLeftRadius:10,
-    width: 180,
+    width: 150,
   },
   buttonTextLogin: {
     color: '#ffffff',
@@ -89,7 +83,7 @@ const styles = StyleSheet.create({
     padding: 15,
     borderBottomRightRadius:10,
     borderTopRightRadius:10,
-    width: 180,
+    width: 150,
   },
   buttonTextRegister: {
     color: '#000000',

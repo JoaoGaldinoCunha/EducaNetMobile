@@ -15,7 +15,7 @@ export const TeacherTab = () => {
         screenOptions={{
             tabBarStyle:{
                 position:'absolute',
-                backgroundColor:"#ffffff"
+                backgroundColor:"#000000"
             }
         }}
             >
@@ -25,6 +25,12 @@ export const TeacherTab = () => {
                         return (
                             <Ionicons name="home" size={size} color={color} />
                         )
+                    },headerStyle:{
+                        backgroundColor:"#000000",
+                        height:80,
+                    },
+                    headerTitleStyle:{
+                        color:"#d3d3d3",textAlign:'center'
                     }
 
                 }}
@@ -34,7 +40,7 @@ export const TeacherTab = () => {
                     tabBarIcon: ({ color, size }) => {
                         return (
                             <Ionicons name="person" size={size} color={color} />)
-                    }
+                    },headerShown:false
                 }}
             />
             <Tab.Screen name='PRATICING' component={TeacherPraticingScreen}
