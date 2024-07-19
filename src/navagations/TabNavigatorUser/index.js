@@ -26,7 +26,7 @@ export const UserTab = () => {
                     tabBarIcon: ({ color, size }) => {
                         return (
                             <Ionicons name="person" size={size} color={color} />)
-                    }
+                    },headerShown:false
                 }}
             />
             <Tab.Screen name='PRATICING' component={UserPraticingScreen}
