@@ -1,6 +1,5 @@
-import {  View, Text} from 'react-native';
 import { StyleSheet, View, Text, Image, TextInput } from 'react-native';
-
+import imageProfile from '../../../../img/Profile.png'
 export const UserProfileScreen = () => {
     return (
       <View style={styles.conteiner} >

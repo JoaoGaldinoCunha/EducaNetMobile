@@ -17,7 +17,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="te" component={RegisterLoginScreen}
+        <Stack.Screen name="
+        " component={RegisterLoginScreen}
           options={{
             title: "",
             headerTransparent: true,
