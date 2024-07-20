@@ -1,8 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native';
+import { useEffect } from 'react';
+import { useFonts, VT323_400Regular } from '@expo-google-fonts/vt323'
+
 
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
+import { SplashScreen } from './src/screens/SplashScreen';
 
 import WelcomeBackScreen from './src/screens/WelcomeBackScreen/index';
 import RegisterLoginScreen from './src/screens/RegisterLoginScreen';
@@ -14,6 +18,15 @@ const Stack = createStackNavigator();
 
 
 export default function App() {
+  const [fontLoaded] = useFonts({
+    VT323_400Regular
+  })
+
+  useEffect(() => {
+    if (!fontLoaded) {
+       return SplashScreen
+    }
+  }, [])
   return (
     <NavigationContainer>
       <Stack.Navigator>

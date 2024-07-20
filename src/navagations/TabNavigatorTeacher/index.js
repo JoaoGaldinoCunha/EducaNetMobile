@@ -25,13 +25,7 @@ export const TeacherTab = () => {
                         return (
                             <Ionicons name="home" size={size} color={color} />
                         )
-                    },headerStyle:{
-                        backgroundColor:"#000000",
-                        height:80,
-                    },
-                    headerTitleStyle:{
-                        color:"#d3d3d3",textAlign:'center'
-                    }
+                    },headerShown:false
 
                 }}
             />
@@ -48,7 +42,7 @@ export const TeacherTab = () => {
                     tabBarIcon: ({ color, size }) => {
                         return (
                             <AntDesign name='edit' size={size} color={color} />)
-                    }
+                    },headerShown:false
                 }}
             />
             <Tab.Screen name='COURSES' component={TeacherCourseScreen}
@@ -56,7 +50,7 @@ export const TeacherTab = () => {
                     tabBarIcon: ({ color, size }) => {
                         return (
                             <Ionicons name="book" size={size} color={color} />)
-                    }
+                    },headerShown:false
                 }}
             />
             <Tab.Screen name='VIDEO' component={TeacherVideoScreen}
@@ -64,7 +58,7 @@ export const TeacherTab = () => {
                 tabBarIcon:({color,size})=>{
                     return(
                         <Entypo name="video" size={size} color={color}/>                    )
-                }
+                },headerShown:false
             }}
             />
         </Tab.Navigator>

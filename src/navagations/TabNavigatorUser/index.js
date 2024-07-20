@@ -11,14 +11,21 @@ import { Entypo, AntDesign, Ionicons } from '@expo/vector-icons'
 
 export const UserTab = () => {
     return (
-        <Tab.Navigator >
+        <Tab.Navigator
+            screenOptions={{
+                tabBarStyle: {
+                    position: 'absolute',
+                    backgroundColor: "#000000"
+                }
+            }}
+        >
             <Tab.Screen name='HOME' component={UserHomeScreen}
                 options={{
                     tabBarIcon: ({ color, size }) => {
                         return (
                             <Ionicons name="home" size={size} color={color} />
                         )
-                    }
+                    },headerShown:false
                 }}
             />
             <Tab.Screen name='PROFILIE' component={UserProfileScreen}
@@ -26,7 +33,7 @@ export const UserTab = () => {
                     tabBarIcon: ({ color, size }) => {
                         return (
                             <Ionicons name="person" size={size} color={color} />)
-                    },headerShown:false
+                    }, headerShown: false
                 }}
             />
             <Tab.Screen name='PRATICING' component={UserPraticingScreen}
@@ -34,10 +41,10 @@ export const UserTab = () => {
                     tabBarIcon: ({ color, size }) => {
                         return (
                             <AntDesign name='edit' size={size} color={color} />)
-                    }
+                    },headerShown:false
                 }}
             />
-            <Tab.Screen name='COURSES' component={UserCourseScreen}
+            <Tab.Screen name='COURSE' component={UserCourseScreen}
                 options={{
                     tabBarIcon: ({ color, size }) => {
                         return (
@@ -46,7 +53,7 @@ export const UserTab = () => {
                 }}
             />
             <Tab.Screen name='VIDEO' component={UserVideoScreen}
-                
+
                 options={{
                     tabBarIcon: ({ color, size }) => {
                         return (
