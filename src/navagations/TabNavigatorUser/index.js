@@ -11,13 +11,22 @@ import { Entypo, AntDesign, Ionicons } from '@expo/vector-icons'
 
 export const UserTab = () => {
     return (
-        <Tab.Navigator
-            screenOptions={{
-                tabBarStyle: {
-                    position: 'absolute',
-                    backgroundColor: "#000000"
-                }
-            }}
+        <Tab.Navigator  
+        screenOptions={{
+            tabBarActiveTintColor:'#00C2FF',
+            tabBarStyle:{
+                backgroundColor:"#000000",
+                borderRadius:9,
+                position:'absolute',
+                borderTopWidth:0,
+                left:14,
+                right:14,
+                elevation:0,
+                bottom:14,
+                paddingBottom:10,
+                height:70
+            }
+        }}
         >
             <Tab.Screen name='HOME' component={UserHomeScreen}
                 options={{

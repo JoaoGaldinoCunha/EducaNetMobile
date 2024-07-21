@@ -1,22 +1,10 @@
 import { StyleSheet, View, Text, Image, TextInput, TouchableOpacity } from 'react-native';
 import { useEffect } from 'react';
 
-import { useFonts, VT323_400Regular } from '@expo-google-fonts/vt323'
-
 import imageProfile from '../../../../img/Profile.png'
 
-import { SplashScreen } from '../../SplashScreen';
-
 export const TeacherProfileScreen = () => {
-  const [fontLoaded] = useFonts({
-    VT323_400Regular
-  })
-
-  useEffect(() => {
-    if (!fontLoaded) {
-       return SplashScreen
-    }
-  }, [])
+  
   return (
     <View style={styles.conteiner} >
       <View>

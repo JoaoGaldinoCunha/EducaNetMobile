@@ -13,9 +13,18 @@ export const TeacherTab = () => {
     return (
         <Tab.Navigator
         screenOptions={{
+            tabBarActiveTintColor:'#00C2FF',
             tabBarStyle:{
+                backgroundColor:"#000000",
+                borderRadius:9,
                 position:'absolute',
-                backgroundColor:"#000000"
+                borderTopWidth:0,
+                left:14,
+                right:14,
+                elevation:0,
+                bottom:14,
+                paddingBottom:10,
+                height:70
             }
         }}
             >

@@ -6,9 +6,10 @@ import imagehome1 from '../../../../img/ReturnExercicies.png'
 import imagehome2 from '../../../../img/ReturnYourCourses.png'
 import imagehome3 from '../../../../img/ReturnYourVideos.png'
 
+import { SplashScreen } from '../../SplashScreen';
 
 export const TeacherHomeScreen = ({navigation}) => {
-
+  
   return (
     <View style={styles.conteiner}>
       <View style={styles.conteinerTexto}>

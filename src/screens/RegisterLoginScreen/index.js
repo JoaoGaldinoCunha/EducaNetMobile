@@ -3,7 +3,6 @@ import { StyleSheet, View, Text,Image,TouchableOpacity} from 'react-native';
 import Imagem from '../../../img/RegisterOrLogin.png'
 
 export const RegisterLoginScreen = ({navigation}) => {
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>

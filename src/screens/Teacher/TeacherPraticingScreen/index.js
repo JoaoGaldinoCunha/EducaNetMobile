@@ -74,13 +74,15 @@ const styles = StyleSheet.create({
   title: {
     color: "#FFFFFF",
     fontSize: 35,
-    fontWeight:'bold'
+    fontWeight:'bold',
+    position:'absolute',
+    top:60,
+    padding:10
   },
   span: {
     color: "#00C2FF",
   },
   conteinerItens:{
-    marginTop:10
   },
   conteinercourses: {
   paddingBottom:50,

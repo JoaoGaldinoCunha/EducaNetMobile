@@ -70,7 +70,10 @@ const styles = StyleSheet.create({
   title: {
     color: "#FFFFFF",
     fontSize: 35,
-    fontWeight:'bold'
+    fontWeight:'bold',
+    position:'absolute',
+    top:60,
+    padding:10
   },
   span: {
     color: "#00C2FF",
@@ -146,13 +149,13 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     fontWeight: 'bold',
     width: '100%',
-    height: 45,
+    height: 35,
     justifyContent: 'center',
     alignItems: 'center'
   },
   buttonText: {
     color: '#000000',
     fontWeight: 'bold',
-    fontSize: 20
+    fontSize:15
   },
 })
