@@ -25,7 +25,7 @@ export const UserHomeScreen = ({navigation}) => {
       <View style={styles.conteiner}>
       <View style={styles.conteinerTexto}>
         <Text style={styles.titile}>Bem Vindo ao Educa-<Text style={styles.span} >Net</Text></Text>
-        <Text style={styles.Subtitile}>Explore nosso aplicativo apertadando nos <Text style={styles.span}> CARDS</Text></Text>
+        <Text style={styles.Subtitile}>Explore nosso aplicativo navegando nos <Text style={styles.span}> CARDS</Text></Text>
       </View>
       <View style={styles.conteinerimg}>
         <TouchableOpacity  onPress={() => navigation.navigate('PRATICING')}>
@@ -86,7 +86,9 @@ const styles = StyleSheet.create({
   imagem3: {
     width: 360,
     height: 340,
-    borderRadius: 20
+    borderRadius: 20,
+    marginBottom:40
+
   }
 })
 export default UserHomeScreen

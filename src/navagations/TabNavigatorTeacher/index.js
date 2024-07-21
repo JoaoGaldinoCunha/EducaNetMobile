@@ -22,7 +22,7 @@ export const TeacherTab = () => {
                 left:14,
                 right:14,
                 elevation:0,
-                bottom:14,
+                bottom:5,
                 paddingBottom:10,
                 height:70
             }

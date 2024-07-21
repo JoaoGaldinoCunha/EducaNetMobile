@@ -95,12 +95,14 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 45,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom:30
   },
   buttonText: {
     color: '#fff',
     fontWeight: 'bold',
-    fontSize: 20
+    fontSize: 20,
+    
   },
 
 })
