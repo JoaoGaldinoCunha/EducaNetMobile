@@ -56,7 +56,7 @@ export const TeacherCourseScreen = () => {
             <Text style={styles.buttonText}>POST</Text>
           </TouchableOpacity>
       </View>
-      </View>
+    </View>
     </View>
   );
 };

@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity, TextInput,ScrollView } from 'react-native';
 
-export const TeacherPraticingScreen = () => {
+export const TeacherPraticingScreen = ({navigation}) => {
   return (
     <View style={styles.conteiner}>
       <Text style={styles.title}>Educa-<Text style={styles.span}>Net</Text></Text>
@@ -10,7 +10,7 @@ export const TeacherPraticingScreen = () => {
         <View style={styles.conteinercourse}>
           <Text style={styles.coursename}>ACTIVITY NAME</Text>
           <TouchableOpacity style={styles.buttonEdit}>
-            <Text style={styles.buttonText}>EDIT</Text>
+            <Text style={styles.buttonText} onPress={ () => navigation.navigate('TeacherEditActivity')}>EDIT</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonDelete}>
             <Text style={styles.buttonText}>DELETE</Text>
@@ -19,7 +19,7 @@ export const TeacherPraticingScreen = () => {
         <View style={styles.conteinercourse}>
           <Text style={styles.coursename} >ACTIVITY NAME</Text>
           <TouchableOpacity style={styles.buttonEdit}>
-            <Text style={styles.buttonText}>EDIT</Text>
+            <Text style={styles.buttonText} >EDIT</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonDelete}>
             <Text style={styles.buttonText}>DELETE</Text>
@@ -139,9 +139,9 @@ const styles = StyleSheet.create({
     fontSize:25,
     marginBottom:5
   },
-  input: {
     backgroundColor: '#fff',
-    borderRadius: 15,
+   input: {
+   borderRadius: 15,
     marginBottom: 10,
     height:40,
     width: "100%",

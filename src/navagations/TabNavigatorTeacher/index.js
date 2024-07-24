@@ -3,7 +3,7 @@ const Tab = createBottomTabNavigator();
 
 import { TeacherCourseScreen } from '../../screens/Teacher/TeacherCoursesScreen';
 import { TeacherHomeScreen } from '../../screens/Teacher/TeacherHomeScreen'
-import { TeacherPraticingScreen } from '../../screens/Teacher/TeacherPraticingScreen';
+import { TeacherPraticingScreen } from '../../screens/Teacher/TeacherPraticingScreen/index';
 import { TeacherProfileScreen } from '../../screens/Teacher/TeacherProfileScreen';
 import { TeacherVideoScreen } from '../../screens/Teacher/TeacherVideoScreen';
 

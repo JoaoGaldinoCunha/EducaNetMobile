@@ -12,6 +12,9 @@ import WelcomeBackScreen from './src/screens/WelcomeBackScreen/index';
 import RegisterLoginScreen from './src/screens/RegisterLoginScreen';
 import WelcomeScreen from './src/screens/WelcomeScreen';
 
+//TeacherEdits
+import { TeacherEditPraticingScreen } from './src/screens/Teacher/TeacherPraticingScreen/EditPraticingScreen';
+
 import TabNavigationUser from './src/navagations/TabNavigatorUser/index'
 import TabNavigationTeacher from './src/navagations/TabNavigatorTeacher/index'
 const Stack = createStackNavigator();
@@ -57,6 +60,12 @@ export default function App() {
           }}
         />
         <Stack.Screen name='Teacher' component={TabNavigationTeacher}
+          options={{
+            title: "",
+            headerTransparent: true,
+            headerShown: false
+          }} />
+          <Stack.Screen name='TeacherEditActivity' component={TeacherEditPraticingScreen}
           options={{
             title: "",
             headerTransparent: true,
