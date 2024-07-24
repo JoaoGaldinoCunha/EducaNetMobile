@@ -7,7 +7,7 @@ export const TeacherEditVideoScreen = () => {
             <Text style={styles.subtitle}>EDIT YOUR VIDEO</Text>
             <View>
                 <Image source={PraticingImage} style={styles.image} />
-                <TouchableOpacity style={styles.buttonreturn}>
+                <TouchableOpacity style={styles.buttonreturn} onPress={ () => navigation.navigate('VIDEO')}>
                     <Text style={styles.buttonText}>Return Your VIDEO</Text>
                 </TouchableOpacity>
             </View>

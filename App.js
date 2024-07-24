@@ -13,8 +13,9 @@ import RegisterLoginScreen from './src/screens/RegisterLoginScreen';
 import WelcomeScreen from './src/screens/WelcomeScreen';
 
 //TeacherEdits
-import { TeacherEditPraticingScreen } from './src/screens/Teacher/TeacherPraticingScreen/EditPraticingScreen';
-
+import {TeacherEditPraticingScreen} from './src/screens/Teacher/TeacherPraticingScreen/EditPraticingScreen';
+import {TeacherEditVideoScreen} from './src/screens/Teacher/TeacherVideoScreen/EditVideoScreen';
+import TeacherEditCourseScreen from './src/screens/Teacher/TeacherCoursesScreen/EditCourseScreen';
 import TabNavigationUser from './src/navagations/TabNavigatorUser/index'
 import TabNavigationTeacher from './src/navagations/TabNavigatorTeacher/index'
 const Stack = createStackNavigator();
@@ -27,7 +28,7 @@ export default function App() {
 
   useEffect(() => {
     if (!fontLoaded) {
-       return SplashScreen
+      return SplashScreen
     }
   }, [])
   return (
@@ -65,7 +66,19 @@ export default function App() {
             headerTransparent: true,
             headerShown: false
           }} />
-          <Stack.Screen name='TeacherEditActivity' component={TeacherEditPraticingScreen}
+        <Stack.Screen name='TeacherEditActivity' component={TeacherEditPraticingScreen}
+          options={{
+            title: "",
+            headerTransparent: true,
+            headerShown: false
+          }} />
+        <Stack.Screen name='TeacherEditVideo' component={TeacherEditVideoScreen}
+          options={{
+            title: "",
+            headerTransparent: true,
+            headerShown: false
+          }} />
+        <Stack.Screen name='TeacherEditCourse' component={TeacherEditCourseScreen}
           options={{
             title: "",
             headerTransparent: true,

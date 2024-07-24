@@ -9,8 +9,8 @@ export const TeacherPraticingScreen = ({navigation}) => {
       <ScrollView style={styles.conteinercourses}>
         <View style={styles.conteinercourse}>
           <Text style={styles.coursename}>ACTIVITY NAME</Text>
-          <TouchableOpacity style={styles.buttonEdit}>
-            <Text style={styles.buttonText} onPress={ () => navigation.navigate('TeacherEditActivity')}>EDIT</Text>
+          <TouchableOpacity style={styles.buttonEdit} onPress={ () => navigation.navigate('TeacherEditActivity')}>
+            <Text style={styles.buttonText} >EDIT</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonDelete}>
             <Text style={styles.buttonText}>DELETE</Text>
@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
     color: "#00C2FF",
   },
   conteinerItens:{
+    marginTop:20
   },
   conteinercourses: {
   paddingBottom:50,
@@ -139,9 +140,9 @@ const styles = StyleSheet.create({
     fontSize:25,
     marginBottom:5
   },
-    backgroundColor: '#fff',
    input: {
-   borderRadius: 15,
+    backgroundColor: '#fff',
+    borderRadius: 15,
     marginBottom: 10,
     height:40,
     width: "100%",

@@ -1,14 +1,14 @@
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView, Image } from 'react-native';
 import PraticingImage from '../../../../../img/atividades1.png'
-export const TeacherEditPraticingScreen = () => {
+export const TeacherEditPraticingScreen = ({navigation}) => {
     return (
         <View style={styles.conteiner}>
             <Text style={styles.title}>Educa-<Text style={styles.span}>Net</Text></Text>
             <Text style={styles.subtitle}>EDIT YOUR ACTIVITY</Text>
             <View>
                 <Image source={PraticingImage} style={styles.image} />
-                <TouchableOpacity style={styles.buttonreturn}>
-                    <Text style={styles.buttonText}>Return Your Activity</Text>
+                <TouchableOpacity style={styles.buttonreturn} onPress={ () => navigation.navigate('PRATICING')}>
+                    <Text style={styles.buttonText}  >Return Your Activity</Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.conteineredit}>

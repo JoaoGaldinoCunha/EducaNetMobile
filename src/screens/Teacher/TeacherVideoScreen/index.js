@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput,ScrollView } from 'react-native';
 
-export const TeacherVideoScreen = () => {
+export const TeacherVideoScreen = ({navigation}) => {
     return (
       <View style={styles.conteiner}>
       <Text style={styles.title}>Educa-<Text style={styles.span}>Net</Text></Text>
@@ -10,7 +10,7 @@ export const TeacherVideoScreen = () => {
       <ScrollView style={styles.conteinercourses}>
         <View style={styles.conteinercourse}>
           <Text style={styles.coursename}>VIDEO NAME</Text>
-          <TouchableOpacity style={styles.buttonEdit}>
+          <TouchableOpacity style={styles.buttonEdit}  onPress={ () => navigation.navigate('TeacherEditVideo')}>
             <Text style={styles.buttonText}>EDIT</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonDelete}>
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     color: "#00C2FF",
   },
   conteinerItens:{
-    marginTop:10
+    marginTop:20
   },
   conteinercourses: {
   paddingBottom:50,
