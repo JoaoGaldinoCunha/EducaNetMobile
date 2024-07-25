@@ -7,10 +7,13 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
 import { SplashScreen } from './src/screens/SplashScreen';
-
+//Telas de entrada
 import WelcomeBackScreen from './src/screens/WelcomeBackScreen/index';
 import RegisterLoginScreen from './src/screens/RegisterLoginScreen';
 import WelcomeScreen from './src/screens/WelcomeScreen';
+//UserEdits
+import {AnswerActivitiesScreen} from './src/screens/User/UserPraticingScreen/AnswerActivitiesScreen';
+
 
 //TeacherEdits
 import {TeacherEditPraticingScreen} from './src/screens/Teacher/TeacherPraticingScreen/EditPraticingScreen';
@@ -54,6 +57,13 @@ export default function App() {
             headerShown: false
           }} />
         <Stack.Screen name='User' component={TabNavigationUser}
+          options={{
+            title: "",
+            headerTransparent: true,
+            headerShown: false
+          }}
+        />
+        <Stack.Screen name='AnswerActivitiesScreen' component={AnswerActivitiesScreen}
           options={{
             title: "",
             headerTransparent: true,
