@@ -23,9 +23,6 @@ export const CourseNameScreen = ({ navigation }) => {
         </View>
       </View>
 
-      <View>
-        <Text style={styles.alternatives}>ALTERNATIVES</Text>
-      </View>
 
       <View style={styles.section}>
         <TouchableOpacity style={styles.alternativesContainer}>
@@ -37,9 +34,12 @@ export const CourseNameScreen = ({ navigation }) => {
         <TouchableOpacity style={styles.alternativesContainer}>
           <Text style={styles.alternativesText}>TEACHER'S NAME</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.alternativesContainer}>
+        <TouchableOpacity style={styles.signUpContainer}
+        onPress={() => navigation.navigate('SelectedCourseScreen')}>
           <Text style={styles.alternativesText}>SIGN UP</Text>
         </TouchableOpacity>
+        
+
       </View>
     </ScrollView>
   );
@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "#FFFFFF",
+    marginTop: 30,
     fontSize: 35,
     fontWeight: 'bold',
     padding: 10,
@@ -68,9 +69,7 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 25,
     marginLeft: 20,
-    marginTop: 80,
     color: '#fff',
-    marginBottom: 1,
     fontFamily: 'VT323_400Regular'
   },
   description: {
@@ -84,19 +83,22 @@ const styles = StyleSheet.create({
   text: {
     marginTop: 20,
     marginLeft: 20,
-    fontSize: 20,
+    marginRight: 20,
+    fontSize: 15,
     color: '#fff',
   },
   section: {
-    marginTop: 60,
+    marginTop: 6,
+    marginBottom: 35,
+
   },
   alternativesContainer: {
     backgroundColor: '#fff',
-    marginTop: 25,
+    marginTop: 5,
     marginLeft: 20,
     marginRight: 20,
     padding: 10,
-    marginBottom: 25,
+    marginBottom: 5,
     borderTopRightRadius: 15,
     borderBottomRightRadius: 15
   },
@@ -105,12 +107,22 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginTop: 20,
     color: '#fff',
-    marginBottom: 10,
     fontFamily: 'VT323_400Regular'
   },
   alternativesText: {
     fontSize: 15,
     marginLeft: 5,
     color: '#000',
-  }
+  },
+  
+    signUpContainer: {
+    backgroundColor: '#00BFFF',
+    marginTop: 25,
+    marginLeft: 20,
+    marginRight: 20,
+    padding: 10,
+    marginBottom: 5,
+    borderRadius: 15,
+  },
+
 });

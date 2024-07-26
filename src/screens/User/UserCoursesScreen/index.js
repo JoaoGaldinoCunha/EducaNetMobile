@@ -29,16 +29,20 @@ export const UserCoursesScreen = ({ navigation }) => {
         <Text style={styles.availableCourses}>AVAILABLE COURSES</Text>
       </View>
       <View style={styles.availableSection}>
-        <TouchableOpacity style={styles.availableContainer} onPress={() => navigation.navigate('CourseNameScreen')}>
+        <TouchableOpacity style={styles.availableContainer} 
+        onPress={() => navigation.navigate('SelectedCourseScreen')}>
           <Text style={styles.availableText}>Available Course 1</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.availableContainer} onPress={() => navigation.navigate('CourseNameScreen')}>
+        <TouchableOpacity style={styles.availableContainer} 
+        onPress={() => navigation.navigate('SelectedCourseScreen')}>
           <Text style={styles.availableText}>Available Course 2</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.availableContainer} onPress={() => navigation.navigate('CourseNameScreen')}>
+        <TouchableOpacity style={styles.availableContainer} 
+        onPress={() => navigation.navigate('SelectedCourseScreen')}>
           <Text style={styles.availableText}>Available Course 3</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.availableContainer} onPress={() => navigation.navigate('CourseNameScreen')}>
+        <TouchableOpacity style={styles.availableContainer} 
+        onPress={() => navigation.navigate('SelectedCourseScreen')}>
           <Text style={styles.availableText}>Available Course 4</Text>
         </TouchableOpacity>
       </View>
