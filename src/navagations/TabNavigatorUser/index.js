@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 const Tab = createBottomTabNavigator();
 
-import { UserCourseScreen } from '../../screens/User/UserCoursesScreen';
+import { UserCoursesScreen } from '../../screens/User/UserCoursesScreen';
 import { UserHomeScreen } from '../../screens/User/UserHomeScreen/index'
 import { UserPraticingScreen } from '../../screens/User/UserPraticingScreen';
 import { UserProfileScreen } from '../../screens/User/UserProfileScreen';
@@ -53,12 +53,12 @@ export const UserTab = () => {
                     },headerShown:false
                 }}
             />
-            <Tab.Screen name='COURSE' component={UserCourseScreen}
+            <Tab.Screen name='COURSE' component={UserCoursesScreen}
                 options={{
                     tabBarIcon: ({ color, size }) => {
                         return (
                             <Ionicons name="book" size={size} color={color} />)
-                    }
+                    },headerShown:false
                 }}
             />
             <Tab.Screen name='VIDEO' component={UserVideoScreen}
@@ -67,7 +67,7 @@ export const UserTab = () => {
                     tabBarIcon: ({ color, size }) => {
                         return (
                             <Entypo name="video" size={size} color={color} />)
-                    }
+                    },headerShown:false
                 }}
             />
         </Tab.Navigator>

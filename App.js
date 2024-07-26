@@ -13,6 +13,7 @@ import RegisterLoginScreen from './src/screens/RegisterLoginScreen';
 import WelcomeScreen from './src/screens/WelcomeScreen';
 //UserEdits
 import {AnswerActivitiesScreen} from './src/screens/User/UserPraticingScreen/AnswerActivitiesScreen';
+import {UserCoursesScreen} from './src/screens/User/UserCoursesScreen';
 
 
 //TeacherEdits
@@ -64,6 +65,13 @@ export default function App() {
           }}
         />
         <Stack.Screen name='AnswerActivitiesScreen' component={AnswerActivitiesScreen}
+          options={{
+            title: "",
+            headerTransparent: true,
+            headerShown: false
+          }}
+        />
+          <Stack.Screen name='UserCoursesScreen' component={UserCoursesScreen}
           options={{
             title: "",
             headerTransparent: true,
