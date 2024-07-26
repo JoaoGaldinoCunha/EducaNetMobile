@@ -14,6 +14,7 @@ import WelcomeScreen from './src/screens/WelcomeScreen';
 //UserEdits
 import {AnswerActivitiesScreen} from './src/screens/User/UserPraticingScreen/AnswerActivitiesScreen';
 import {UserCoursesScreen} from './src/screens/User/UserCoursesScreen';
+import {CourseNameScreen} from './src/screens/User/UserCoursesScreen/CourseNameScreen';
 
 
 //TeacherEdits
@@ -72,6 +73,13 @@ export default function App() {
           }}
         />
           <Stack.Screen name='UserCoursesScreen' component={UserCoursesScreen}
+          options={{
+            title: "",
+            headerTransparent: true,
+            headerShown: false
+          }}
+        />
+        <Stack.Screen name='CourseNameScreen' component={CourseNameScreen}
           options={{
             title: "",
             headerTransparent: true,

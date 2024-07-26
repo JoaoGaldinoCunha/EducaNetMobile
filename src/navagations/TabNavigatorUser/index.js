@@ -7,6 +7,8 @@ import { UserPraticingScreen } from '../../screens/User/UserPraticingScreen';
 import { UserProfileScreen } from '../../screens/User/UserProfileScreen';
 import { UserVideoScreen } from '../../screens/User/UserVideoScreen';
 
+
+
 import { Entypo, AntDesign, Ionicons } from '@expo/vector-icons'
 
 export const UserTab = () => {
@@ -61,6 +63,9 @@ export const UserTab = () => {
                     },headerShown:false
                 }}
             />
+
+
+
             <Tab.Screen name='VIDEO' component={UserVideoScreen}
 
                 options={{
