@@ -15,6 +15,8 @@ import WelcomeScreen from './src/screens/WelcomeScreen';
 import {AnswerActivitiesScreen} from './src/screens/User/UserPraticingScreen/AnswerActivitiesScreen';
 import {UserCoursesScreen} from './src/screens/User/UserCoursesScreen';
 import {CourseNameScreen} from './src/screens/User/UserCoursesScreen/CourseNameScreen';
+import {SelectedCourseScreen} from './src/screens/User/SelectedCourseScreen';
+
 
 
 //TeacherEdits
@@ -86,6 +88,14 @@ export default function App() {
             headerShown: false
           }}
         />
+                <Stack.Screen name='SelectedCourseScreen' component={SelectedCourseScreen}
+          options={{
+            title: "",
+            headerTransparent: true,
+            headerShown: false
+          }}
+        />
+        
         <Stack.Screen name='Teacher' component={TabNavigationTeacher}
           options={{
             title: "",

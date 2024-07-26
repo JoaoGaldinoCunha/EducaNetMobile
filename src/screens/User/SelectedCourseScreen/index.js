@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 
-export const CourseNameScreen = ({ navigation }) => {
+export const SelectedCourseScreen = ({ navigation }) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
@@ -34,8 +34,8 @@ export const CourseNameScreen = ({ navigation }) => {
         <TouchableOpacity style={styles.alternativesContainer}>
           <Text style={styles.alternativesText}>TEACHER'S NAME</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.signUpContainer}>
-          <Text style={styles.alternativesText}>SIGN UP</Text>
+        <TouchableOpacity style={styles.exitCourseContainer}>
+          <Text style={styles.alternativesText}>EXIT COURSE</Text>
         </TouchableOpacity>
         
 
@@ -44,7 +44,7 @@ export const CourseNameScreen = ({ navigation }) => {
   );
 }
 
-export default CourseNameScreen;
+export default SelectedCourseScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -114,8 +114,8 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   
-    signUpContainer: {
-    backgroundColor: '#00BFFF',
+  exitCourseContainer: {
+    backgroundColor: '#FF0000',
     marginTop: 25,
     marginLeft: 20,
     marginRight: 20,
