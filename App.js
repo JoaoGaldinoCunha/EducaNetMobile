@@ -16,6 +16,7 @@ import {AnswerActivitiesScreen} from './src/screens/User/UserPraticingScreen/Ans
 import {UserCoursesScreen} from './src/screens/User/UserCoursesScreen';
 import {CourseNameScreen} from './src/screens/User/UserCoursesScreen/CourseNameScreen';
 import {SelectedCourseScreen} from './src/screens/User/SelectedCourseScreen';
+import {UserVideoScreen} from './src/screens/User/UserVideoScreen';
 
 
 
@@ -89,6 +90,13 @@ export default function App() {
           }}
         />
                 <Stack.Screen name='SelectedCourseScreen' component={SelectedCourseScreen}
+          options={{
+            title: "",
+            headerTransparent: true,
+            headerShown: false
+          }}
+        />
+                        <Stack.Screen name='UserVideoScreen' component={UserVideoScreen}
           options={{
             title: "",
             headerTransparent: true,
