@@ -11,8 +11,7 @@ export const UserVideoScreen = ({navigation}) => {
       </View>
       <View style={styles.section}>
         <TouchableOpacity style={styles.videoContainer}          
-        onPress={ () => navigation.navigate('VideoNameScreen')}
-        >
+        onPress={ () => navigation.navigate('VideoNameScreen')}>
           <TextInput
             style={styles.videoText}
             value="VIDEO"
@@ -20,8 +19,7 @@ export const UserVideoScreen = ({navigation}) => {
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.videoContainer}        
-        onPress={ () => navigation.navigate('VideoNameScreen')}
-        >
+        onPress={ () => navigation.navigate('VideoNameScreen')}>
           <TextInput
             style={styles.videoText}
             value="VIDEO"
@@ -29,8 +27,7 @@ export const UserVideoScreen = ({navigation}) => {
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.videoContainer}        
-        onPress={ () => navigation.navigate('VideoNameScreen')}
-        >
+        onPress={ () => navigation.navigate('VideoNameScreen')}>
           <TextInput
             style={styles.videoText}
             value="VIDEO"
@@ -38,8 +35,7 @@ export const UserVideoScreen = ({navigation}) => {
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.videoContainer}        
-        onPress={ () => navigation.navigate('VideoNameScreen')}
-        >
+        onPress={ () => navigation.navigate('VideoNameScreen')}>
           <TextInput
             style={styles.videoText}
             value="VIDEO"
@@ -47,8 +43,7 @@ export const UserVideoScreen = ({navigation}) => {
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.videoContainer}        
-        onPress={ () => navigation.navigate('VideoNameScreen')}
-        >
+        onPress={ () => navigation.navigate('VideoNameScreen')}>
           <TextInput
             style={styles.videoText}
             value="VIDEO"
@@ -56,8 +51,7 @@ export const UserVideoScreen = ({navigation}) => {
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.videoContainer}        
-        onPress={ () => navigation.navigate('VideoNameScreen')}
-        >
+        onPress={ () => navigation.navigate('VideoNameScreen')}>
           <TextInput
             style={styles.videoText}
             value="VIDEO"
@@ -66,34 +60,31 @@ export const UserVideoScreen = ({navigation}) => {
         </TouchableOpacity>
       </View>
       <View style={styles.gradeVideoSection}>
+
         <Text style={styles.titleVideoGrade}>VIDEOS SEEN</Text>
+
         <View style={styles.row}>
           <Text style={styles.labelVideoGrade}>VIDEO</Text>
-          <TextInput
-            style={styles.inputVideoGrade}
-            value="SE AGAIN"
-            editable={false}
-          />
-
+          <TouchableOpacity style={styles.inputVideoGrade}
+          onPress={ () => navigation.navigate('VideoNameScreen')}>
+          <Text style={styles.alternativesText}>SEE AGAIN</Text>
+        </TouchableOpacity>
         </View>
         <View style={styles.row}>
           <Text style={styles.labelVideoGrade}>VIDEO</Text>
-          <TextInput
-            style={styles.inputVideoGrade}
-            value="SE AGAIN"
-            editable={false}
-          />
-
+          <TouchableOpacity style={styles.inputVideoGrade}
+          onPress={ () => navigation.navigate('VideoNameScreen')}>
+          <Text style={styles.alternativesText}>SEE AGAIN</Text>
+        </TouchableOpacity>
         </View>
         <View style={styles.row}>
           <Text style={styles.labelVideoGrade}>VIDEO</Text>
-          <TextInput
-            style={styles.inputVideoGrade}
-            value="AGAIN"
-            editable={false}
-          />
-
+          <TouchableOpacity style={styles.inputVideoGrade}
+          onPress={ () => navigation.navigate('VideoNameScreen')}>
+          <Text style={styles.alternativesText}>SEE AGAIN</Text>
+        </TouchableOpacity>
         </View>
+
       </View>
     </ScrollView>
   );
@@ -123,7 +114,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 25,
-    marginLeft: 110,
+    marginLeft: 10,
     top: 80,
     color: '#fff',
     marginBottom: 1,
@@ -133,30 +124,34 @@ const styles = StyleSheet.create({
   section: {
     marginTop: 60,
   },
-  videoContainer: {
+    videoContainer: {
     backgroundColor: '#fff',
-    height: 47,
-    padding: 15,
+    height: 40,
+    marginRight: 20,
+    marginLeft: 10,
+    padding: 10,
     marginBottom: 10,
-    borderRadius: 15,
+    borderTopRightRadius: 10,
+    borderBottomRightRadius:10,  
   },
   videoText: {
     fontSize: 16,
-    marginLeft: 10,
+    color: '#000',
+    marginLeft: 20,
   },
   gradeVideoSection: {
     backgroundColor: '#00BFFF',
-    borderRadius: 10,
+    top: 5,
+    marginRight: 20,
+    borderRadius: 15,
+    marginLeft: 10,
     padding: 15,
     marginBottom: 40,
   },
   titleVideoGrade: {
     fontSize: 25,
-    justifyContent: 'center',
-    marginTop: 10,
-    marginLeft: 25,
+    marginLeft: 10,
     color: '#fff',
-    marginBottom: 10,
     fontFamily: 'VT323_400Regular'
 
   },
@@ -168,7 +163,8 @@ const styles = StyleSheet.create({
   labelVideoGrade: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginRight: 10,
+    padding: 15,
+    marginRight: 20,
     color: 'white',
   },
   inputVideoGrade:{
@@ -176,22 +172,14 @@ const styles = StyleSheet.create({
     width: '20',
     backgroundColor: 'white',
     padding: 10,
-    textAlign: 'center',
+    marginRight: 20,
     borderTopRightRadius: 10,
     borderBottomRightRadius:10,
     flex: 1,
     marginRight: 10,
 
   },
-  input: {
-    height: 40,
-    backgroundColor: 'white',
-    padding: 10,
-    borderTopRightRadius: 10,
-    borderBottomRightRadius:10,
-    flex: 1,
-    marginRight: 10,
-  },
+
 });
 
 export default UserVideoScreen;

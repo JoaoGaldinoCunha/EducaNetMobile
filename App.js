@@ -17,6 +17,7 @@ import {UserCoursesScreen} from './src/screens/User/UserCoursesScreen';
 import {CourseNameScreen} from './src/screens/User/UserCoursesScreen/CourseNameScreen';
 import {SelectedCourseScreen} from './src/screens/User/SelectedCourseScreen';
 import {UserVideoScreen} from './src/screens/User/UserVideoScreen';
+import {VideoNameScreen} from './src/screens/User/UserVideoScreen/VideoNameScreen';
 
 
 
@@ -97,6 +98,13 @@ export default function App() {
           }}
         />
                         <Stack.Screen name='UserVideoScreen' component={UserVideoScreen}
+          options={{
+            title: "",
+            headerTransparent: true,
+            headerShown: false
+          }}
+        />
+                                <Stack.Screen name='VideoNameScreen' component={VideoNameScreen}
           options={{
             title: "",
             headerTransparent: true,
