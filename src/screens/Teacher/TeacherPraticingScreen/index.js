@@ -28,6 +28,34 @@ export const TeacherPraticingScreen = ({navigation}) => {
         <View style={styles.conteinercourse}>
           <Text style={styles.coursename} >ACTIVITY NAME</Text>
           <TouchableOpacity style={styles.buttonEdit}>
+            <Text style={styles.buttonText} >EDIT</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonDelete}>
+            <Text style={styles.buttonText}>DELETE</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.conteinercourse}>
+          <Text style={styles.coursename} >ACTIVITY NAME</Text>
+          <TouchableOpacity style={styles.buttonEdit}>
+            <Text style={styles.buttonText} >EDIT</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonDelete}>
+            <Text style={styles.buttonText}>DELETE</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.conteinercourse}>
+          <Text style={styles.coursename} >ACTIVITY NAME</Text>
+          <TouchableOpacity style={styles.buttonEdit}>
+            <Text style={styles.buttonText} >EDIT</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonDelete}>
+            <Text style={styles.buttonText}>DELETE</Text>
+          </TouchableOpacity>
+        </View>
+        
+        <View style={styles.conteinercourse}>
+          <Text style={styles.coursename} >ACTIVITY NAME</Text>
+          <TouchableOpacity style={styles.buttonEdit}>
             <Text style={styles.buttonText}>EDIT</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonDelete}>
