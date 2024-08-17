@@ -7,10 +7,19 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
 import { SplashScreen } from './src/screens/SplashScreen';
-
+//Telas de entrada
 import WelcomeBackScreen from './src/screens/WelcomeBackScreen/index';
 import RegisterLoginScreen from './src/screens/RegisterLoginScreen';
 import WelcomeScreen from './src/screens/WelcomeScreen';
+//UserEdits
+import {AnswerActivitiesScreen} from './src/screens/User/UserPraticingScreen/AnswerActivitiesScreen';
+import {UserCoursesScreen} from './src/screens/User/UserCoursesScreen';
+import {CourseNameScreen} from './src/screens/User/UserCoursesScreen/CourseNameScreen';
+import {SelectedCourseScreen} from './src/screens/User/SelectedCourseScreen';
+import {UserVideoScreen} from './src/screens/User/UserVideoScreen';
+import {VideoNameScreen} from './src/screens/User/UserVideoScreen/VideoNameScreen';
+
+
 
 //TeacherEdits
 import {TeacherEditPraticingScreen} from './src/screens/Teacher/TeacherPraticingScreen/EditPraticingScreen';
@@ -60,6 +69,49 @@ export default function App() {
             headerShown: false
           }}
         />
+        <Stack.Screen name='AnswerActivitiesScreen' component={AnswerActivitiesScreen}
+          options={{
+            title: "",
+            headerTransparent: true,
+            headerShown: false
+          }}
+        />
+          <Stack.Screen name='UserCoursesScreen' component={UserCoursesScreen}
+          options={{
+            title: "",
+            headerTransparent: true,
+            headerShown: false
+          }}
+        />
+        <Stack.Screen name='CourseNameScreen' component={CourseNameScreen}
+          options={{
+            title: "",
+            headerTransparent: true,
+            headerShown: false
+          }}
+        />
+                <Stack.Screen name='SelectedCourseScreen' component={SelectedCourseScreen}
+          options={{
+            title: "",
+            headerTransparent: true,
+            headerShown: false
+          }}
+        />
+                        <Stack.Screen name='UserVideoScreen' component={UserVideoScreen}
+          options={{
+            title: "",
+            headerTransparent: true,
+            headerShown: false
+          }}
+        />
+                                <Stack.Screen name='VideoNameScreen' component={VideoNameScreen}
+          options={{
+            title: "",
+            headerTransparent: true,
+            headerShown: false
+          }}
+        />
+        
         <Stack.Screen name='Teacher' component={TabNavigationTeacher}
           options={{
             title: "",

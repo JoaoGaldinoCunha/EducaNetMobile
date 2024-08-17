@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import { useFonts, VT323_400Regular } from '@expo-google-fonts/vt323'
 
-export const UserPraticingScreen = () => {
+export const UserPraticingScreen = ({navigation}) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
@@ -10,42 +10,54 @@ export const UserPraticingScreen = () => {
         <Text style={styles.subtitle}>OPEN ACTIVITIES</Text>
       </View>
       <View style={styles.section}>
-        <TouchableOpacity style={styles.activityContainer}>
+        <TouchableOpacity style={styles.activityContainer}          
+        onPress={ () => navigation.navigate('AnswerActivitiesScreen')}
+        >
           <TextInput
             style={styles.activityText}
             value="ACTIVITY"
             editable={false}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.activityContainer}>
+        <TouchableOpacity style={styles.activityContainer}        
+        onPress={ () => navigation.navigate('AnswerActivitiesScreen')}
+        >
           <TextInput
             style={styles.activityText}
             value="ACTIVITY"
             editable={false}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.activityContainer}>
+        <TouchableOpacity style={styles.activityContainer}        
+        onPress={ () => navigation.navigate('AnswerActivitiesScreen')}
+        >
           <TextInput
             style={styles.activityText}
             value="ACTIVITY"
             editable={false}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.activityContainer}>
+        <TouchableOpacity style={styles.activityContainer}        
+        onPress={ () => navigation.navigate('AnswerActivitiesScreen')}
+        >
           <TextInput
             style={styles.activityText}
             value="ACTIVITY"
             editable={false}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.activityContainer}>
+        <TouchableOpacity style={styles.activityContainer}        
+        onPress={ () => navigation.navigate('AnswerActivitiesScreen')}
+        >
           <TextInput
             style={styles.activityText}
             value="ACTIVITY"
             editable={false}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.activityContainer}>
+        <TouchableOpacity style={styles.activityContainer}        
+        onPress={ () => navigation.navigate('AnswerActivitiesScreen')}
+        >
           <TextInput
             style={styles.activityText}
             value="ACTIVITY"
