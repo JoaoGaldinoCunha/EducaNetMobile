@@ -1,131 +1,242 @@
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
 
 export const TeacherCourseScreen = ({ navigation }) => {
+  const [courseName, setCourseName] = useState('');
+  const [workload, setWorkload] = useState('');
+  const [theme, setTheme] = useState('');
+  const [description, setDescription] = useState('');
+  const [courses, setCourses] = useState([]);
+
+  // Função para buscar os cursos do backend
+  const fetchCourses = async () => {
+    try {
+      const response = await fetch('http://192.168.0.13:8080/course/AllCourses');
+      const data = await response.json();
+      console.log('Dados recebidos:', data);
+      if (Array.isArray(data)) {
+        setCourses(data);
+      } else {
+        console.error('Resposta inesperada da API:', data);
+        setCourses([]);
+      }
+    } catch (error) {
+      console.error('Erro ao buscar cursos:', error);
+      alert('Não foi possível carregar os cursos.');
+    }
+  };
+
+  // UseEffect para buscar cursos quando a tela for carregada
+  useEffect(() => {
+    fetchCourses();
+  }, []);
+
+
+// Função para criar um curso
+const handleCreateCourse = async () => {
+  if (!courseName || !workload || !theme || !description) {
+    alert('Por favor, preencha todos os campos.');
+    return;
+  }
+
+  // Estrutura correta dos dados
+  const courseData = {
+    courseName: courseName,
+    workload: parseInt(workload, 10),
+    courseClass: theme,
+    description: description,
+  };
+  
+
+  try {
+    const response = await fetch('http://192.168.0.13:8080/course/coursesave', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(courseData),
+    });
+
+    // Verificar o status da resposta
+    const statusCode = response.status;
+    const contentType = response.headers.get('Content-Type');
+
+    let responseData;
+    if (contentType && contentType.includes('application/json')) {
+      responseData = await response.json();
+    } else {
+      responseData = await response.text();
+    }
+
+    if (statusCode === 201 || statusCode === 200) {
+      alert('Curso criado com sucesso!');
+      setCourseName('');
+      setWorkload('');
+      setTheme('');
+      setDescription('');
+      fetchCourses();
+    } else if (statusCode === 409) {
+      alert(responseData.message || 'Erro: Curso já existe. Escolha um nome diferente.');
+    } else {
+      alert(`Falha ao criar o curso: ${responseData.message || statusCode}`);
+    }
+  } catch (error) {
+    console.error('Erro ao criar o curso:', error);
+    alert('Ocorreu um erro ao criar o curso. Verifique sua conexão com a internet.');
+  }
+};
+
+  
+
+
+  // Função para deletar um curso
+  const handleDeleteCourse = async (courseId) => {
+    try {
+      const response = await fetch(`http://192.168.0.13:8080/course/deleteCourse/${courseId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        alert('Curso deletado com sucesso!');
+        fetchCourses();
+      } else {
+        alert(`Falha ao deletar o curso: ${response.status}`);
+      }
+    } catch (error) {
+      console.error('Erro ao deletar o curso:', error);
+      alert('Ocorreu um erro ao deletar o curso.');
+    }
+  };
+
   return (
-    <View style={styles.conteiner}>
+    <View style={styles.container}>
       <Text style={styles.title}>Educa-<Text style={styles.span}>Net</Text></Text>
-      <View style={styles.conteinerItens}>
-        <Text style={styles.titlecourses}>Courses Created</Text>
-        <ScrollView style={styles.conteinercourses}>
-          <View style={styles.conteinercourse}>
-            <Text style={styles.coursename}>COURSE NAME</Text>
-            <TouchableOpacity style={styles.buttonEdit} onPress={() => navigation.navigate('TeacherEditCourse')}>
-              <Text style={styles.buttonText}>EDIT</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonDelete}>
-              <Text style={styles.buttonText}>DELETE</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.conteinercourse}>
-            <Text style={styles.coursename} >COURSE NAME</Text>
-            <TouchableOpacity style={styles.buttonEdit}>
-              <Text style={styles.buttonText}>EDIT</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonDelete}>
-              <Text style={styles.buttonText}>DELETE</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.conteinercourse}>
-            <Text style={styles.coursename} >COURSE NAME</Text>
-            <TouchableOpacity style={styles.buttonEdit}>
-              <Text style={styles.buttonText}>EDIT</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonDelete}>
-              <Text style={styles.buttonText}>DELETE</Text>
-            </TouchableOpacity>
-          </View>
+      <View style={styles.containerItems}>
+        {/* Seção de Cursos Criados */}
+        <Text style={styles.titleCourses}>Cursos Criados</Text>
+        <ScrollView style={styles.containerCourses}>
+          {courses && courses.length > 0 ? (
+            courses.map((course, index) => (
+              <View key={index} style={styles.containerCourse}>
+                <Text style={styles.courseName}>{course.courseName || 'Nome não disponível'}</Text>
+                <TouchableOpacity
+  style={styles.buttonEdit}
+  onPress={() =>
+    navigation.navigate('TeacherEditCourse', {
+      courseId: course.courseId,
+      courseName: course.courseName,
+      workload: course.workload,
+      theme: course.courseClass,
+      description: course.description,
+    })
+  }
+>
+  <Text style={styles.buttonText}>EDITAR</Text>
+</TouchableOpacity>
+
+                <TouchableOpacity
+                  style={styles.buttonDelete}
+                  onPress={() => handleDeleteCourse(course.courseId)}
+                >
+                  <Text style={styles.buttonText}>DELETAR</Text>
+                </TouchableOpacity>
+              </View>
+            ))
+          ) : (
+            <Text style={styles.noCoursesText}>Nenhum curso disponível.</Text>
+          )}
         </ScrollView>
-        <View style={styles.conteinercreated}>
-          <Text style={styles.titleconteinercreated}>CREATED COURSE</Text>
+
+        {/* Seção de Criação de Curso */}
+        <View style={styles.containerCreated}>
+          <Text style={styles.titleContainerCreated}>Criar Curso</Text>
           <TextInput
             style={styles.input}
-            placeholder="COURSE NAME"
+            placeholder="Nome do Curso"
+            value={courseName}
+            onChangeText={setCourseName}
           />
           <TextInput
             style={styles.input}
-            placeholder="WORKLOAD"
+            placeholder="Carga Horária"
+            value={workload}
+            onChangeText={setWorkload}
+            keyboardType="numeric"
           />
           <TextInput
             style={styles.input}
-            placeholder="THEME COURSE"
+            placeholder="Tema do Curso"
+            value={theme}
+            onChangeText={setTheme}
           />
           <TextInput
             style={styles.input}
-            placeholder="DESCRIPTION"
-            />
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>POST</Text>
+            placeholder="Descrição"
+            value={description}
+            onChangeText={setDescription}
+          />
+          <TouchableOpacity style={styles.button} onPress={handleCreateCourse}>
+            <Text style={styles.buttonText}>POSTAR</Text>
           </TouchableOpacity>
         </View>
       </View>
     </View>
   );
 };
+
 const styles = StyleSheet.create({
-  conteiner: {
-    backgroundColor: "#002250",
-    justifyContent: 'center',
+  container: {
+    backgroundColor: '#002250',
     flex: 1,
     padding: 10,
   },
   title: {
-    color: "#FFFFFF",
+    color: '#FFFFFF',
     fontSize: 35,
     fontWeight: 'bold',
     position: 'absolute',
     top: 60,
-    padding: 10
   },
+  
   span: {
-    color: "#00C2FF",
+    color: '#00C2FF',
   },
-  conteinerItens: {
-    marginTop: 20
+  containerItems: {
+    marginTop: 100,
   },
-  conteinercourses: {
-    paddingBottom: 50,
-    height: 200
+  containerCourses: {
+    height: 200,
   },
-  titlecourses: {
+  titleCourses: {
     color: '#FFFFFF',
     fontSize: 35,
-    marginBottom: 15,
-    fontFamily: 'VT323_400Regular',
-
   },
-  conteinercourse: {
+  containerCourse: {
+    height: 50,
     flexDirection: 'row',
     alignItems: 'center',
-
+    marginBottom: 20,
+    backgroundColor: '#003366',
+    borderRadius: 10,
   },
-  coursename: {
-    color: "#FFFFFF",
-    paddingRight: 10,
-    fontSize: 20
+  courseName: {
+    color: '#FFFFFF',
+    fontSize: 20,
+    flex: 1,
   },
   buttonEdit: {
     backgroundColor: '#23C02A',
     borderRadius: 15,
-    fontWeight: 'bold',
-    width: 90,
-    height: 55,
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 2
+    padding: 10,
   },
   buttonDelete: {
     backgroundColor: '#C02323',
     borderRadius: 15,
-    fontWeight: 'bold',
-    width: 90,
-    height: 55,
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 2
+    padding: 10,
   },
   conteinercreated: {
     width: '100%',
-    height: 320,
+    height: 350,
     backgroundColor: "#00C2FF",
     borderRadius: 20,
     padding: 10,
@@ -141,22 +252,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 15,
     marginBottom: 10,
-    height: 40,
-    width: "100%",
-    padding: 4
+    padding: 10,
   },
   button: {
     backgroundColor: '#1977F3',
     borderRadius: 15,
-    fontWeight: 'bold',
-    width: '100%',
-    height: 35,
-    justifyContent: 'center',
-    alignItems: 'center'
+    padding: 20,
+    
   },
   buttonText: {
-    color: '#000000',
-    fontWeight: 'bold',
-    fontSize: 15
+    color: '#000',
   },
-})
+});
+
+export default TeacherCourseScreen;

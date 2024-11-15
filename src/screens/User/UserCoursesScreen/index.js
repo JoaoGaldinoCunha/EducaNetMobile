@@ -1,56 +1,75 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 
 export const UserCoursesScreen = ({ navigation }) => {
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const apiUrl = 'http://192.168.0.13:8080/course/AllCourses';
+
+    // Realiza a requisição para buscar os cursos
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        // Confirme se a resposta é realmente um array
+        if (Array.isArray(data)) {
+          setCourses(data);
+        } else {
+          setError('Formato de dados inesperado.');
+        }
+        setLoading(false);
+      })
+      .catch(err => {
+        setError('Erro ao carregar os cursos.');
+        setLoading(false);
+      });
+  }, []);
+ 
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.loadingText}>Carregando...</Text>
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.errorText}>{error}</Text>
+      </View>
+    );
+  }
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Educa-<Text style={styles.span}>Net</Text></Text>
-        <Text style={styles.subtitle}>OPEN COURSES</Text>
+
+
+        <Text style={styles.title}>
+          Educa-<Text style={styles.span}>Net</Text>
+        </Text>
+        <Text style={styles.subtitle}>Cursos Disponíveis</Text>
       </View>
+
+      {/* Lista de cursos */}
       <View style={styles.section}>
-        <TouchableOpacity style={styles.coursesContainer} onPress={() => navigation.navigate('CourseNameScreen')}>
-          <Text style={styles.coursesText}>Course 1</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.coursesContainer} onPress={() => navigation.navigate('CourseNameScreen')}>
-          <Text style={styles.coursesText}>Course 2</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.coursesContainer} onPress={() => navigation.navigate('CourseNameScreen')}>
-          <Text style={styles.coursesText}>Course 3</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.coursesContainer} onPress={() => navigation.navigate('CourseNameScreen')}>
-          <Text style={styles.coursesText}>Course 4</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.coursesContainer} onPress={() => navigation.navigate('CourseNameScreen')}>
-          <Text style={styles.coursesText}>Course 5</Text>
-        </TouchableOpacity>
-      </View>
-      <View>
-        <Text style={styles.availableCourses}>AVAILABLE COURSES</Text>
-      </View>
-      <View style={styles.availableSection}>
-        <TouchableOpacity style={styles.availableContainer} 
-        onPress={() => navigation.navigate('SelectedCourseScreen')}>
-          <Text style={styles.availableText}>Available Course 1</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.availableContainer} 
-        onPress={() => navigation.navigate('SelectedCourseScreen')}>
-          <Text style={styles.availableText}>Available Course 2</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.availableContainer} 
-        onPress={() => navigation.navigate('SelectedCourseScreen')}>
-          <Text style={styles.availableText}>Available Course 3</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.availableContainer} 
-        onPress={() => navigation.navigate('SelectedCourseScreen')}>
-          <Text style={styles.availableText}>Available Course 4</Text>
-        </TouchableOpacity>
+        {courses.map(course => (
+          <TouchableOpacity 
+            key={course.courseId} 
+            style={styles.coursesContainer}
+            onPress={() => navigation.navigate('CourseNameScreen', { courseId: course.courseId })}
+          >
+            <Text style={styles.coursesText}>{course.courseName}</Text>
+          </TouchableOpacity>
+        ))}
+
       </View>
     </ScrollView>
   );
 };
-
-export default UserCoursesScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -63,12 +82,9 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "#FFFFFF",
-    marginTop: 30,
     fontSize: 35,
     fontWeight: 'bold',
-    padding: 10,    
-    marginBottom: 1,
-
+    padding: 10,
   },
   span: {
     color: "#00C2FF",
@@ -76,20 +92,15 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 25,
     marginLeft: 10,
-    Top: 20,
+    marginTop: 20,
     color: '#fff',
-    marginBottom: 0,
-    fontFamily: 'VT323_400Regular',
   },
   section: {
     marginTop: 20,
   },
   coursesContainer: {
     backgroundColor: '#fff',
-    top: 1,
     marginTop: 2,
-    marginLeft: 10,
-    marginRight: 10,
     padding: 10,
     marginBottom: 8,
     borderTopRightRadius: 15,
@@ -99,30 +110,34 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#000',
   },
-  availableSection: {
-    marginTop: 20,
-    marginLeft: 10,
-    marginRight: 10,
-  },
-  availableCourses: {
-    fontSize: 25,
-    marginLeft: 10,
-    marginTop: 30,
+  loadingText: {
     color: '#fff',
-    marginBottom: 10,
-    fontFamily: 'VT323_400Regular',
+    fontSize: 20,
+    textAlign: 'center',
   },
-  availableContainer: {
-    backgroundColor: '#fff',
-    marginLeft: 10,
-    marginRight: 10,
+  errorText: {
+    color: 'red',
+    fontSize: 20,
+    textAlign: 'center',
+  },
+  backButton: {
     padding: 10,
-    marginBottom: 10,
-    borderTopRightRadius: 15,
-    borderBottomRightRadius: 15,
+    backgroundColor: '#00C2FF',
+    borderRadius: 10,
+    marginBottom: 20,
+    alignItems: 'center',
   },
-  availableText: {
+  exitContainer: {
+    position: 'bottom',
+    color: '#FF0000',
+
+
+  },
+  backButtonText: {
+    color: '#fff',
     fontSize: 18,
-    color: '#000',
+    fontWeight: 'bold',
   },
 });
+
+export default UserCoursesScreen;

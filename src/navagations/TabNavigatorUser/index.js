@@ -3,7 +3,6 @@ const Tab = createBottomTabNavigator();
 
 import { UserCoursesScreen } from '../../screens/User/UserCoursesScreen';
 import { UserHomeScreen } from '../../screens/User/UserHomeScreen/index'
-import { UserPraticingScreen } from '../../screens/User/UserPraticingScreen';
 import { UserProfileScreen } from '../../screens/User/UserProfileScreen';
 import { UserVideoScreen } from '../../screens/User/UserVideoScreen';
 
@@ -47,14 +46,7 @@ export const UserTab = () => {
                     }, headerShown: false
                 }}
             />
-            <Tab.Screen name='PRATICING' component={UserPraticingScreen}
-                options={{
-                    tabBarIcon: ({ color, size }) => {
-                        return (
-                            <AntDesign name='edit' size={size} color={color} />)
-                    },headerShown:false
-                }}
-            />
+
             <Tab.Screen name='COURSE' component={UserCoursesScreen}
                 options={{
                     tabBarIcon: ({ color, size }) => {

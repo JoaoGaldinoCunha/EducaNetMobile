@@ -12,10 +12,7 @@ import WelcomeBackScreen from './src/screens/WelcomeBackScreen/index';
 import RegisterLoginScreen from './src/screens/RegisterLoginScreen';
 import WelcomeScreen from './src/screens/WelcomeScreen';
 //UserEdits
-import {AnswerActivitiesScreen} from './src/screens/User/UserPraticingScreen/AnswerActivitiesScreen';
 import {UserCoursesScreen} from './src/screens/User/UserCoursesScreen';
-import {CourseNameScreen} from './src/screens/User/UserCoursesScreen/CourseNameScreen';
-import {SelectedCourseScreen} from './src/screens/User/SelectedCourseScreen';
 import {UserVideoScreen} from './src/screens/User/UserVideoScreen';
 import {VideoNameScreen} from './src/screens/User/UserVideoScreen/VideoNameScreen';
 
@@ -24,7 +21,7 @@ import {VideoNameScreen} from './src/screens/User/UserVideoScreen/VideoNameScree
 //TeacherEdits
 import {TeacherEditPraticingScreen} from './src/screens/Teacher/TeacherPraticingScreen/EditPraticingScreen';
 import {TeacherEditVideoScreen} from './src/screens/Teacher/TeacherVideoScreen/EditVideoScreen';
-import TeacherEditCourseScreen from './src/screens/Teacher/TeacherCoursesScreen/EditCourseScreen';
+import TeacherEditCourseScreen from './src/screens/Teacher/TeacherCoursesScreen/TeacherEditCourseScreen';
 import TabNavigationUser from './src/navagations/TabNavigatorUser/index'
 import TabNavigationTeacher from './src/navagations/TabNavigatorTeacher/index'
 const Stack = createStackNavigator();
@@ -69,13 +66,7 @@ export default function App() {
             headerShown: false
           }}
         />
-        <Stack.Screen name='AnswerActivitiesScreen' component={AnswerActivitiesScreen}
-          options={{
-            title: "",
-            headerTransparent: true,
-            headerShown: false
-          }}
-        />
+
           <Stack.Screen name='UserCoursesScreen' component={UserCoursesScreen}
           options={{
             title: "",
@@ -83,20 +74,7 @@ export default function App() {
             headerShown: false
           }}
         />
-        <Stack.Screen name='CourseNameScreen' component={CourseNameScreen}
-          options={{
-            title: "",
-            headerTransparent: true,
-            headerShown: false
-          }}
-        />
-                <Stack.Screen name='SelectedCourseScreen' component={SelectedCourseScreen}
-          options={{
-            title: "",
-            headerTransparent: true,
-            headerShown: false
-          }}
-        />
+
                         <Stack.Screen name='UserVideoScreen' component={UserVideoScreen}
           options={{
             title: "",

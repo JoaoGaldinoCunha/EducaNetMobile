@@ -8,7 +8,7 @@ export const RegisterLoginScreen = ({navigation}) => {
       <View style={styles.header}>
       </View>
       <View style={styles.content}>
-        <Image source={Imagem}/>
+      <Image source={Imagem}/>
         <Text style={styles.title}>Make the CHANGE
         and change the way you learn
         </Text>
