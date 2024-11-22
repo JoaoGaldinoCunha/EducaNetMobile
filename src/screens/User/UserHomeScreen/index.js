@@ -8,8 +8,6 @@ import imagehome2 from '../../../../img/ReturnYourCourses.png'
 import imagehome3 from '../../../../img/ReturnYourVideos.png'
 
 
-
-
 export const UserHomeScreen = ({navigation}) => {
   const [fontLoaded] = useFonts({
     VT323_400Regular

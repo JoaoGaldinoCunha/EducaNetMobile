@@ -9,21 +9,17 @@ export const RegisterLoginScreen = ({navigation}) => {
       </View>
       <View style={styles.content}>
       <Image source={Imagem}/>
-        <Text style={styles.title}>Make the CHANGE
-        and change the way you learn
+        <Text style={styles.title}>Educa-Net 
         </Text>
         <Text style={styles.text}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Diam maecenas mi non sed ut odio. Non, justo, sed facilisi
-          et. Eget viverra urna, vestibulum egestas faucibus
-          egestas. Sagittis nam velit volutpat eu nunc.
+        Bem-vindo ao Educa-net! Faça login ou Cadastre-se para acessar um mundo de conhecimento e transformar seu aprendizado
         </Text>
         <View style={styles.buttons}>
         <TouchableOpacity style={styles.buttonLogin}>
-            <Text style={styles.buttonTextLogin} onPress={ () => navigation.navigate('WelcomeBackScreen')}>Sign in</Text>
+            <Text style={styles.buttonTextLogin} onPress={ () => navigation.navigate('WelcomeBackScreen')}>Login</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonRegister} onPress={ () => navigation.navigate('WelcomeRegister') }>
-            <Text style={styles.buttonTextRegister}>Register</Text>
+          <TouchableOpacity style={styles.buttonRegister} onPress={ () => navigation.navigate('WelcomeScreen') }>
+            <Text style={styles.buttonTextRegister}>Cadastro</Text>
           </TouchableOpacity>
         </View>
       </View>

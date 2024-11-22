@@ -57,9 +57,7 @@ export const UserTab = () => {
             />
 
 
-
             <Tab.Screen name='VIDEO' component={UserVideoScreen}
-
                 options={{
                     tabBarIcon: ({ color, size }) => {
                         return (
