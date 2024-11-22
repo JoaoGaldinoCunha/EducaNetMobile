@@ -3,7 +3,6 @@ import { View, Text, Image, StyleSheet,TouchableOpacity} from 'react-native';
 import { useFonts, VT323_400Regular } from '@expo-google-fonts/vt323'
 
 import SplashScreen from '../../SplashScreen/index'
-
 import imagehome1 from '../../../../img/ReturnExercicies.png'
 import imagehome2 from '../../../../img/ReturnYourCourses.png'
 import imagehome3 from '../../../../img/ReturnYourVideos.png'
