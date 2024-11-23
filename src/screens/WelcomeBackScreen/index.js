@@ -15,11 +15,11 @@ export const WelcomeBackScreen = ({ navigation }) => {
 
   const handleLogin = async () => {
     try {
-      // Recupera os professores registrados do AsyncStorage
+      // Recupera os professores registrados
       const storedProfessors = await AsyncStorage.getItem('professors');
       const professors = storedProfessors ? JSON.parse(storedProfessors) : [];
 
-      // Procura um professor correspondente
+      // Verifica se é professor
       const professor = professors.find(
         (prof) =>
           (prof.email === username || prof.cpf === username) &&
@@ -27,17 +27,16 @@ export const WelcomeBackScreen = ({ navigation }) => {
       );
 
       if (professor) {
-        // Se encontrar um professor, exibe sucesso e navega para a tela do professor
         Alert.alert('Sucesso', 'Login como professor realizado com sucesso!');
-        navigation.navigate('Teacher'); // Redireciona para a tela do professor
+        navigation.navigate('Teacher'); // Tela do professor
         return;
       }
 
-      // Se não encontrou, verifica os usuários comuns
+      // Recupera os usuários comuns registrados
       const storedUsers = await AsyncStorage.getItem('users');
       const users = storedUsers ? JSON.parse(storedUsers) : [];
 
-      // Procura um usuário correspondente
+      // Verifica se é usuário comum
       const user = users.find(
         (user) =>
           (user.email === username || user.cpf === username) &&
@@ -45,11 +44,9 @@ export const WelcomeBackScreen = ({ navigation }) => {
       );
 
       if (user) {
-        // Se encontrou, exibe sucesso e navega para a tela do usuário
         Alert.alert('Sucesso', 'Login realizado com sucesso!');
-        navigation.navigate('User'); // Redireciona para a tela do usuário comum
+        navigation.navigate('User'); // Tela do usuário comum
       } else {
-        // Se não encontrar, exibe erro
         Alert.alert('Erro', 'As informações fornecidas estão incorretas.');
       }
     } catch (error) {
@@ -88,6 +85,7 @@ export const WelcomeBackScreen = ({ navigation }) => {
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
