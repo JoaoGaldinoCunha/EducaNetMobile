@@ -2,19 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput } from 'react-native';
 
 export const UserVideoScreen = ({ navigation, route }) => {
-  const { userId } = route.params; // ID do usuário recebido via props
+  const { userId } = route.params; 
   const [courses, setCourses] = useState([]);
   const [videosSeen, setVideosSeen] = useState([]);
 
-  // Carregar cursos e vídeos assistidos ao montar o componente
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        // Buscar os cursos associados ao usuário
         const response = await fetch(`http://192.168.0.13:8080/courses/${userId}`);
         if (!response.ok) throw new Error('Erro ao buscar cursos');
         const data = await response.json();
-        setCourses(data); // Define os cursos no estado
+        setCourses(data); 
       } catch (error) {
         console.error('Erro ao carregar os cursos:', error);
       }
@@ -22,7 +20,6 @@ export const UserVideoScreen = ({ navigation, route }) => {
 
     const fetchVideosSeen = async () => {
       try {
-        // Simula buscar vídeos assistidos (substitua com a rota real caso exista)
         const response = await fetch(`http://192.168.0.13:8080/videosSeen/${userId}`);
         if (!response.ok) throw new Error('Erro ao buscar vídeos assistidos');
         const data = await response.json();
