@@ -60,7 +60,7 @@ export const UserCoursesScreen = ({ navigation }) => {
           <TouchableOpacity 
             key={course.courseId} 
             style={styles.coursesContainer}
-            onPress={() => navigation.navigate('CourseNameScreen', { courseId: course.courseId })}
+            onPress={() => navigation.navigate('UserVideoScreen', { courseId: course.courseId })}
           >
             <Text style={styles.coursesText}>{course.courseName}</Text>
           </TouchableOpacity>

@@ -1,9 +1,49 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { Video } from 'react-native-video';
-import { VideoPlayerScreen } from '../../UserVideoScreen/VideoPlayerScreen'
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 
-export const VideoNameScreen = ({ navigation }) => {
+export const VideoNameScreen = ({ navigation, route }) => {
+  const { videoId } = route.params; // ID do vídeo recebido da navegação anterior
+  const [videoData, setVideoData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // Buscar os detalhes do vídeo ao montar o componente
+  useEffect(() => {
+    const fetchVideoDetails = async () => {
+      try {
+        const response = await fetch(`http://192.168.0.13:8080/VideoCoursesById/{id}`);
+        if (!response.ok) throw new Error('Erro ao buscar detalhes do vídeo');
+        const data = await response.json();
+        setVideoData(data); // Define os detalhes do vídeo
+      } catch (error) {
+        console.error('Erro ao carregar o vídeo:', error);
+      } finally {
+        setLoading(false); // Para de exibir o loader
+      }
+    };
+
+    fetchVideoDetails();
+  }, [videoId]);
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#00C2FF" />
+        <Text style={styles.loadingText}>Carregando...</Text>
+      </View>
+    );
+  }
+
+  if (!videoData) {
+    return (
+      <View style={styles.errorContainer}>
+        <Text style={styles.errorText}>Erro ao carregar os detalhes do vídeo.</Text>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
+          <Text style={styles.buttonText}>VOLTAR</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
@@ -11,19 +51,21 @@ export const VideoNameScreen = ({ navigation }) => {
           Educa-<Text style={styles.span}>Net</Text>
         </Text>
         <Text style={styles.subtitle}>VIDEO NAME</Text>
-        <Text style={styles.description}>DESCRIPTION</Text>
-        <Text style={styles.text}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Diam maecenas mi non sed ut odio. Non, justo, sed facilisi
-          et. Eget viverra urna, vestibulum egestas faucibus
-          egestas. Sagittis nam velit volutpat eu nunc.
-          Diam maecenas mi non sed ut odio. Non, justo, sed facilisi
-          et. Eget viverra urna, vestibulum egestas faucibus
-          egestas. Sagittis nam velit volutpat eu nunc.
-        </Text>
+        <Text style={styles.description}>Descrição</Text>
+        <Text style={styles.text}>{videoData.description}</Text>
       </View>
+
       <View style={styles.videoContainer}>
-       <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() =>
+            navigation.navigate('VideoPlayerScreen', { videoUrl: videoData.videoUrl })
+          }
+        >
+          <Text style={styles.buttonText}>ASSISTIR AO VÍDEO</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
           <Text style={styles.buttonText}>RETORNAR PARA VIDEOS DO CURSO</Text>
         </TouchableOpacity>
       </View>
@@ -35,7 +77,7 @@ export default VideoNameScreen;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#002250",
+    backgroundColor: '#002250',
     flex: 1,
     padding: 10,
   },
@@ -43,7 +85,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   title: {
-    color: "#FFFFFF",
+    color: '#FFFFFF',
     fontSize: 35,
     fontWeight: 'bold',
     position: 'absolute',
@@ -51,7 +93,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   span: {
-    color: "#00C2FF",
+    color: '#00C2FF',
   },
   subtitle: {
     fontSize: 25,
@@ -75,15 +117,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#fff',
   },
-
   videoContainer: {
     marginTop: 150,
     alignItems: 'center',
-  },
-  video: {
-    width: '100%',
-    height: 200,
-    backgroundColor: '#000',
   },
   button: {
     marginTop: 20,
@@ -94,7 +130,29 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#fff',
-    fontSize: 10,
+    fontSize: 14,
     fontWeight: 'bold',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#002250',
+  },
+  loadingText: {
+    marginTop: 10,
+    color: '#00C2FF',
+    fontSize: 16,
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#002250',
+  },
+  errorText: {
+    color: '#FF5C5C',
+    fontSize: 18,
+    marginBottom: 20,
   },
 });
