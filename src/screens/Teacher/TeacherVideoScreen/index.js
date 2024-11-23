@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 
 export const TeacherVideoScreen = ({ navigation }) => {
-  const [videoName, setVideoName] = useState('');
-  const [videoUrl, setVideoUrl] = useState('');
+  const [videoCourseName, setVideoCourseName] = useState('');
+  const [videoCourseUrlId, setVideoCourseUrlId] = useState('');
   const [courseId, setCourseId] = useState('');
-  const [description, setDescription] = useState('');
+  const [videoCourseDescription, setVideoCourseDescription] = useState('');
   const [videos, setVideos] = useState([]);
 
   // Função para buscar vídeos do backend
   const fetchVideos = async () => {
     try {
-      const response = await fetch('http://192.168.0.13:8080/VideoCoursesById/{id}');
+      const response = await fetch('http://192.168.0.10:8080/videoCourse/VideoCoursesById/{id}'); 
       const data = await response.json();
       console.log('Dados recebidos:', data);
       if (Array.isArray(data)) {
@@ -33,20 +33,20 @@ export const TeacherVideoScreen = ({ navigation }) => {
 
   // Função para criar um vídeo
   const handleCreateVideo = async () => {
-    if (!videoName || !videoUrl || !courseId || !description) {
+    if (!videoCourseName || !videoCourseUrlId || !courseId || !videoCourseDescription) {
       alert('Por favor, preencha todos os campos.');
       return;
     }
 
     const videoData = {
-      videoName,
-      videoUrl,
+      videoCourseName,
+      videoCourseUrlId,
       courseId: parseInt(courseId, 10),
-      description,
+      videoCourseDescription,
     };
 
     try {
-      const response = await fetch('http://192.168.0.13:8080/videoCourse/videopost', {
+      const response = await fetch('http://192.168.0.10:8080/videoCourse/videoCourse/videopost', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -55,17 +55,17 @@ export const TeacherVideoScreen = ({ navigation }) => {
       });
 
       const statusCode = response.status;
-      const responseData = await response.json();
+      const responseData = await response.text();
 
       if (statusCode === 201 || statusCode === 200) {
-        alert('Vídeo criado com sucesso!');
-        setVideoName('');
-        setVideoUrl('');
+        alert(responseData || 'Vídeo criado com sucesso!');
+        setVideoCourseName('');
+        setVideoCourseUrlId('');
         setCourseId('');
-        setDescription('');
+        setVideoCourseDescription('');
         fetchVideos();
       } else {
-        alert(`Erro ao criar o vídeo: ${responseData.message || statusCode}`);
+        alert(`Erro ao criar o vídeo: ${responseData || statusCode}`);
       }
     } catch (error) {
       console.error('Erro ao criar o vídeo:', error);
@@ -76,7 +76,7 @@ export const TeacherVideoScreen = ({ navigation }) => {
   // Função para deletar um vídeo
   const handleDeleteVideo = async (videoId) => {
     try {
-      const response = await fetch(`http://192.168.0.13:8080/videoCourse/{id}`, {
+      const response = await fetch(`http://192.168.0.10:8080/videoCourse/videoCourse/{id}`, {
         method: 'DELETE',
       });
 
@@ -102,16 +102,16 @@ export const TeacherVideoScreen = ({ navigation }) => {
           {videos && videos.length > 0 ? (
             videos.map((video, index) => (
               <View key={index} style={styles.containerVideo}>
-                <Text style={styles.videoName}>{video.videoName || 'Nome não disponível'}</Text>
+                <Text style={styles.videoName}>{video.videoCourseName || 'Nome não disponível'}</Text>
                 <TouchableOpacity
                   style={styles.buttonEdit}
                   onPress={() =>
                     navigation.navigate('TeacherEditVideo', {
-                      videoId: video.videoId,
-                      videoName: video.videoName,
-                      videoUrl: video.videoUrl,
-                      courseId: video.courseId,
-                      description: video.description,
+                      videoId: video.videoCourseId,
+                      videoCourseName: video.videoCourseName,
+                      videoCourseUrlId: video.videoCourseUrlId,
+                      courseId: video.tbCourse?.courseId,
+                      videoCourseDescription: video.videoCourseDescription,
                     })
                   }
                 >
@@ -119,7 +119,7 @@ export const TeacherVideoScreen = ({ navigation }) => {
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.buttonDelete}
-                  onPress={() => handleDeleteVideo(video.videoId)}
+                  onPress={() => handleDeleteVideo(video.videoCourseId)}
                 >
                   <Text style={styles.buttonText}>DELETAR</Text>
                 </TouchableOpacity>
@@ -136,14 +136,14 @@ export const TeacherVideoScreen = ({ navigation }) => {
           <TextInput
             style={styles.input}
             placeholder="Nome do Vídeo"
-            value={videoName}
-            onChangeText={setVideoName}
+            value={videoCourseName}
+            onChangeText={setVideoCourseName}
           />
           <TextInput
             style={styles.input}
-            placeholder="URL do Vídeo"
-            value={videoUrl}
-            onChangeText={setVideoUrl}
+            placeholder="ID do Vídeo (URL)"
+            value={videoCourseUrlId}
+            onChangeText={setVideoCourseUrlId}
           />
           <TextInput
             style={styles.input}
@@ -155,8 +155,8 @@ export const TeacherVideoScreen = ({ navigation }) => {
           <TextInput
             style={styles.input}
             placeholder="Descrição"
-            value={description}
-            onChangeText={setDescription}
+            value={videoCourseDescription}
+            onChangeText={setVideoCourseDescription}
           />
           <TouchableOpacity style={styles.button} onPress={handleCreateVideo}>
             <Text style={styles.buttonText}>POSTAR</Text>
@@ -166,6 +166,7 @@ export const TeacherVideoScreen = ({ navigation }) => {
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {

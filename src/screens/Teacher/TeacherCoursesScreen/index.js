@@ -11,7 +11,7 @@ export const TeacherCourseScreen = ({ navigation }) => {
   // Função para buscar os cursos do backend
   const fetchCourses = async () => {
     try {
-      const response = await fetch('http://192.168.0.13:8080/course/AllCourses');
+      const response = await fetch('http://192.168.0.10:8080/course/AllCourses');
       const data = await response.json();
       console.log('Dados recebidos:', data);
       if (Array.isArray(data)) {
@@ -49,7 +49,7 @@ const handleCreateCourse = async () => {
   
 
   try {
-    const response = await fetch('http://192.168.0.13:8080/course/coursesave', {
+    const response = await fetch('http://192.168.0.10:8080/course/coursesave', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ const handleCreateCourse = async () => {
   // Função para deletar um curso
   const handleDeleteCourse = async (courseId) => {
     try {
-      const response = await fetch(`http://192.168.0.13:8080/course/deleteCourse/${courseId}`, {
+      const response = await fetch(`http://192.168.0.10:8080/course/deleteCourse/${courseId}`, {
         method: 'DELETE',
       });
 
