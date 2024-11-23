@@ -11,7 +11,7 @@ export const TeacherVideoScreen = ({ navigation }) => {
   // Função para buscar vídeos do backend
   const fetchVideos = async () => {
     try {
-      const response = await fetch('http://192.168.0.17:8081/VideoCoursesById/{id}');
+      const response = await fetch('http://192.168.0.13:8080/VideoCoursesById/{id}');
       const data = await response.json();
       console.log('Dados recebidos:', data);
       if (Array.isArray(data)) {
@@ -46,7 +46,7 @@ export const TeacherVideoScreen = ({ navigation }) => {
     };
 
     try {
-      const response = await fetch('http://192.168.0.17:8081/videoCourse/videopost', {
+      const response = await fetch('http://192.168.0.13:8080/videoCourse/videopost', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ export const TeacherVideoScreen = ({ navigation }) => {
   // Função para deletar um vídeo
   const handleDeleteVideo = async (videoId) => {
     try {
-      const response = await fetch(`http://192.168.0.17:8081/videoCourse/{id}`, {
+      const response = await fetch(`http://192.168.0.13:8080/videoCourse/{id}`, {
         method: 'DELETE',
       });
 
