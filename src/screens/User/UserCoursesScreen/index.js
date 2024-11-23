@@ -7,7 +7,7 @@ export const UserCoursesScreen = ({ navigation }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const apiUrl = 'http://192.168.0.13:8080/course/AllCourses';
+    const apiUrl = 'http://192.168.0.10:8080/course/AllCourses';
 
     // Realiza a requisição para buscar os cursos
     fetch(apiUrl)

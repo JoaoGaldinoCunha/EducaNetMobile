@@ -1,37 +1,55 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 
 export const UserVideoScreen = ({ navigation, route }) => {
-  const { userId } = route.params; 
-  const [courses, setCourses] = useState([]);
-  const [videosSeen, setVideosSeen] = useState([]);
+  const courseId = route.params?.courseId; // Recebendo o ID do curso pela rota
+  const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true); // Estado para carregamento
+  const [error, setError] = useState(null); // Estado para capturar erros
 
+  // Buscar os vídeos vinculados ao courseId
   useEffect(() => {
-    const fetchCourses = async () => {
+    const fetchVideos = async () => {
       try {
-        const response = await fetch(`http://192.168.0.13:8080/courses/${userId}`);
-        if (!response.ok) throw new Error('Erro ao buscar cursos');
-        const data = await response.json();
-        setCourses(data); 
+        if (courseId) {
+          const response = await fetch(`http://192.168.0.10:8080/videoCourse/VideoCoursesById/${courseId}`);
+          if (!response.ok) throw new Error('Erro ao buscar vídeos');
+          const data = await response.json(); // Obtém os dados como JSON
+          const videosArray = JSON.parse(data); // Converte a string JSON em um array de objetos
+          setVideos(videosArray || []); // Garante que o estado seja sempre um array
+        } else {
+          throw new Error('Course ID não está definido');
+        }
       } catch (error) {
-        console.error('Erro ao carregar os cursos:', error);
+        setError(error.message);
+        console.error('Erro ao carregar os vídeos:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
-    const fetchVideosSeen = async () => {
-      try {
-        const response = await fetch(`http://192.168.0.13:8080/videosSeen/${userId}`);
-        if (!response.ok) throw new Error('Erro ao buscar vídeos assistidos');
-        const data = await response.json();
-        setVideosSeen(data);
-      } catch (error) {
-        console.error('Erro ao carregar vídeos assistidos:', error);
-      }
-    };
+    fetchVideos();
+  }, [courseId]);
 
-    fetchCourses();
-    fetchVideosSeen();
-  }, [userId]);
+  // Exibe um indicador de carregamento enquanto busca dados
+  if (loading) {
+    return (
+      <View style={styles.loader}>
+        <ActivityIndicator size="large" color="#00C2FF" />
+        <Text style={styles.loaderText}>Carregando vídeos...</Text>
+      </View>
+    );
+  }
+
+  // Exibe uma mensagem de erro, se ocorrer
+  if (error) {
+    return (
+      <View style={styles.errorContainer}>
+        <Text style={styles.errorText}>Erro: {error}</Text>
+        <Text style={styles.errorSubtitle}>Por favor, tente novamente mais tarde.</Text>
+      </View>
+    );
+  }
 
   return (
     <ScrollView style={styles.container}>
@@ -39,36 +57,29 @@ export const UserVideoScreen = ({ navigation, route }) => {
         <Text style={styles.title}>
           Educa-<Text style={styles.span}>Net</Text>
         </Text>
-        <Text style={styles.subtitle}>VIDEO COURSES</Text>
+        <Text style={styles.subtitle}>VIDEOS DO CURSO</Text>
       </View>
 
-      {/* Lista de Cursos */}
+      {/* Lista de Vídeos */}
       <View style={styles.section}>
-        {courses.map((course) => (
-          <TouchableOpacity
-            key={course.id}
-            style={styles.videoContainer}
-            onPress={() => navigation.navigate('VideoNameScreen', { courseId: course.id })}
-          >
-            <TextInput style={styles.videoText} value={course.nome} editable={false} />
-          </TouchableOpacity>
-        ))}
-      </View>
-
-      {/* Lista de Vídeos Assistidos */}
-      <View style={styles.gradeVideoSection}>
-        <Text style={styles.titleVideoGrade}>VIDEOS SEEN</Text>
-        {videosSeen.map((video) => (
-          <View key={video.id} style={styles.row}>
-            <Text style={styles.labelVideoGrade}>{video.nome}</Text>
+        {videos.length > 0 ? (
+          videos.map((video) => (
             <TouchableOpacity
-              style={styles.inputVideoGrade}
-              onPress={() => navigation.navigate('VideoNameScreen', { videoId: video.id })}
+              key={video.id}
+              style={styles.videoContainer}
+              onPress={() => navigation.navigate('VideoDetailScreen', { videoId: video.id })}
             >
-              <Text style={styles.alternativesText}>SEE AGAIN</Text>
+              {/* Nome do Vídeo */}
+              <Text style={styles.videoText}>{video.videoCourseName}</Text>
+              {/* Descrição do Vídeo */}
+              <Text style={styles.videoDescription}>{video.description}</Text>
+              {/* URL do Vídeo */}
+              <Text style={styles.videoUrl}>URL: {video.videoUrl}</Text>
             </TouchableOpacity>
-          </View>
-        ))}
+          ))
+        ) : (
+          <Text style={styles.noVideos}>Nenhum vídeo encontrado para este curso.</Text>
+        )}
       </View>
     </ScrollView>
   );
@@ -107,56 +118,56 @@ const styles = StyleSheet.create({
   },
   videoContainer: {
     backgroundColor: '#fff',
-    height: 40,
-    marginRight: 20,
-    marginLeft: 10,
     padding: 10,
     marginBottom: 10,
-    borderTopRightRadius: 10,
-    borderBottomRightRadius: 10,
+    borderRadius: 10,
   },
   videoText: {
-    fontSize: 16,
+    fontSize: 18,
     color: '#000',
-    marginLeft: 20,
+    fontWeight: 'bold',
   },
-  gradeVideoSection: {
-    backgroundColor: '#00BFFF',
-    top: 5,
-    marginRight: 20,
-    borderRadius: 15,
-    marginLeft: 10,
-    padding: 15,
-    marginBottom: 40,
+  videoDescription: {
+    fontSize: 14,
+    color: '#555',
+    marginTop: 5,
   },
-  titleVideoGrade: {
-    fontSize: 25,
-    marginLeft: 10,
+  videoUrl: {
+    fontSize: 12,
+    color: '#007ACC',
+    marginTop: 5,
+  },
+  noVideos: {
     color: '#fff',
-    fontFamily: 'VT323_400Regular',
+    textAlign: 'center',
+    marginTop: 20,
+    fontSize: 18,
   },
-  row: {
-    flexDirection: 'row',
+  loader: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#002250',
+  },
+  loaderText: {
+    color: '#fff',
+    marginTop: 10,
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#002250',
+  },
+  errorText: {
+    color: '#FF5C5C',
+    fontSize: 18,
+    fontWeight: 'bold',
     marginBottom: 10,
   },
-  labelVideoGrade: {
+  errorSubtitle: {
+    color: '#fff',
     fontSize: 16,
-    fontWeight: 'bold',
-    padding: 15,
-    marginRight: 20,
-    color: 'white',
-  },
-  inputVideoGrade: {
-    height: 40,
-    width: '20',
-    backgroundColor: 'white',
-    padding: 10,
-    marginRight: 20,
-    borderTopRightRadius: 10,
-    borderBottomRightRadius: 10,
-    flex: 1,
-    marginRight: 10,
   },
 });
 

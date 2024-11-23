@@ -10,7 +10,7 @@ export const VideoNameScreen = ({ navigation, route }) => {
   useEffect(() => {
     const fetchVideoDetails = async () => {
       try {
-        const response = await fetch(`http://192.168.0.13:8080/VideoCoursesById/{id}`);
+        const response = await fetch(`http://192.168.0.10:8080/VideoCoursesById/{id}`);
         if (!response.ok) throw new Error('Erro ao buscar detalhes do vídeo');
         const data = await response.json();
         setVideoData(data); // Define os detalhes do vídeo
