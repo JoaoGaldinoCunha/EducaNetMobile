@@ -30,24 +30,16 @@ export const WelcomeScreen = ({ navigation }) => {
         const newUser = { username, lastname, email, cpf, password, role };
         const storageKey = role === 'professor' ? 'professors' : 'users';
   
-        // Log para confirmar o novo usuário
-        console.log("Novo usuário cadastrado:", newUser);
-  
         const storedUsers = await AsyncStorage.getItem(storageKey);
         const users = storedUsers ? JSON.parse(storedUsers) : [];
         users.push(newUser);
         await AsyncStorage.setItem(storageKey, JSON.stringify(users));
   
-        // Exibe alerta com a mensagem personalizada
         const userType = role === 'professor' ? 'Professor' : 'Usuário';
         Alert.alert('Registro Concluído', `Registro como ${userType} realizado com sucesso!`);
   
-        // Navegação condicional
-        if (role === 'professor') {
-          navigation.navigate('Teacher'); // Tela principal do professor
-        } else {
-          navigation.navigate('WelcomeBackScreen'); // Tela de login
-        }
+        // Redireciona professores para a tela de login
+        navigation.navigate('WelcomeBackScreen');
       } catch (error) {
         Alert.alert('Erro', 'Ocorreu um problema ao salvar os dados.');
       }
@@ -55,7 +47,6 @@ export const WelcomeScreen = ({ navigation }) => {
       Alert.alert('Erro', 'Preencha todos os campos obrigatórios.');
     }
   };
-
 
   return (
     <View style={styles.container}>
