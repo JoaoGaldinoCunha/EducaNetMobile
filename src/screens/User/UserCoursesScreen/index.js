@@ -13,7 +13,6 @@ export const UserCoursesScreen = ({ navigation }) => {
     fetch(apiUrl)
       .then(response => response.json())
       .then(data => {
-        // Confirme se a resposta é realmente um array
         if (Array.isArray(data)) {
           setCourses(data);
         } else {
@@ -26,7 +25,7 @@ export const UserCoursesScreen = ({ navigation }) => {
         setLoading(false);
       });
   }, []);
- 
+
   if (loading) {
     return (
       <View style={styles.container}>
@@ -46,8 +45,6 @@ export const UserCoursesScreen = ({ navigation }) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-
-
         <Text style={styles.title}>
           Educa-<Text style={styles.span}>Net</Text>
         </Text>
@@ -57,15 +54,21 @@ export const UserCoursesScreen = ({ navigation }) => {
       {/* Lista de cursos */}
       <View style={styles.section}>
         {courses.map(course => (
-          <TouchableOpacity 
-            key={course.courseId} 
+          <TouchableOpacity
+            key={course.courseId}
             style={styles.coursesContainer}
-            onPress={() => navigation.navigate('UserVideoScreen', { courseId: course.courseId })}
+            onPress={() =>
+              navigation.navigate('UserVideoScreen', {
+                courseId: course.courseId,
+                courseName: course.courseName,
+                videoCourse: course.videoCourse, // Passando o vídeo associado ao curso
+                videoCourseUrlId: course.videoCourseUrlId, // Passando a URL do vídeo
+              })
+            }
           >
             <Text style={styles.coursesText}>{course.courseName}</Text>
           </TouchableOpacity>
         ))}
-
       </View>
     </ScrollView>
   );
@@ -73,7 +76,7 @@ export const UserCoursesScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#002250",
+    backgroundColor: '#002250',
     flex: 1,
     padding: 10,
   },
@@ -81,13 +84,13 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   title: {
-    color: "#FFFFFF",
+    color: '#FFFFFF',
     fontSize: 35,
     fontWeight: 'bold',
     padding: 10,
   },
   span: {
-    color: "#00C2FF",
+    color: '#00C2FF',
   },
   subtitle: {
     fontSize: 25,
@@ -119,24 +122,6 @@ const styles = StyleSheet.create({
     color: 'red',
     fontSize: 20,
     textAlign: 'center',
-  },
-  backButton: {
-    padding: 10,
-    backgroundColor: '#00C2FF',
-    borderRadius: 10,
-    marginBottom: 20,
-    alignItems: 'center',
-  },
-  exitContainer: {
-    position: 'bottom',
-    color: '#FF0000',
-
-
-  },
-  backButtonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
   },
 });
 

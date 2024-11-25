@@ -3,17 +3,27 @@ import { View, Text, StyleSheet } from 'react-native';
 import Video from 'react-native-video';
 
 export const VideoPlayerScreen = ({ route }) => {
-  const { videoUrl, videoTitle, videoDescription } = route.params;
+  const { videoUrl, videoTitle, videoDescription } = route.params || {};
+
+  // Verificar se a URL do vídeo foi passada
+  if (!videoUrl) {
+    return (
+      <View style={styles.errorContainer}>
+        <Text style={styles.errorText}>URL do vídeo não disponível.</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{videoTitle}</Text>
-      <Text style={styles.description}>{videoDescription}</Text>
+      <Text style={styles.title}>{videoTitle || 'Sem título disponível'}</Text>
+      <Text style={styles.description}>{videoDescription || 'Descrição não disponível'}</Text>
+      
       <Video
-        source={{ uri: videoUrl }}
-        style={styles.video}
-        controls={true}
-        resizeMode="contain"
+        source={{ uri: videoUrl }} // Define a URL do vídeo
+        style={styles.video} // Estilos do player
+        controls={true} // Ativa os controles padrão (play, pause, etc.)
+        resizeMode="contain" // Ajusta o vídeo para caber na tela
       />
     </View>
   );
@@ -43,6 +53,17 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 250,
     backgroundColor: '#000',
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#002250',
+  },
+  errorText: {
+    color: '#FF5C5C',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
 

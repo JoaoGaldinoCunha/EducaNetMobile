@@ -1,42 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Linking, Alert } from 'react-native';
 
-export const VideoNameScreen = ({ navigation, route }) => {
-  const { videoId } = route.params; // ID do vídeo recebido da navegação anterior
-  const [videoData, setVideoData] = useState(null);
-  const [loading, setLoading] = useState(true);
+export const VideoNameScreen = ({ route, navigation }) => {
+  const { videoUrl, videoTitle, videoDescription } = route.params || {};
 
-  // Buscar os detalhes do vídeo ao montar o componente
-  useEffect(() => {
-    const fetchVideoDetails = async () => {
-      try {
-        const response = await fetch(`http://192.168.0.10:8080/VideoCoursesById/{id}`);
-        if (!response.ok) throw new Error('Erro ao buscar detalhes do vídeo');
-        const data = await response.json();
-        setVideoData(data); // Define os detalhes do vídeo
-      } catch (error) {
-        console.error('Erro ao carregar o vídeo:', error);
-      } finally {
-        setLoading(false); // Para de exibir o loader
+  // Função para abrir o vídeo no YouTube
+  const openYouTube = async () => {
+    try {
+      const supported = await Linking.canOpenURL(videoUrl);
+      if (supported) {
+        await Linking.openURL(videoUrl); // Abre o YouTube diretamente
+      } else {
+        Alert.alert('Erro', 'Não foi possível abrir o link do vídeo.');
       }
-    };
+    } catch (error) {
+      console.error('Erro ao abrir o vídeo:', error);
+      Alert.alert('Erro', 'Ocorreu um erro ao tentar abrir o vídeo.');
+    }
+  };
 
-    fetchVideoDetails();
-  }, [videoId]);
-
-  if (loading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#00C2FF" />
-        <Text style={styles.loadingText}>Carregando...</Text>
-      </View>
-    );
-  }
-
-  if (!videoData) {
+  if (!videoUrl) {
     return (
       <View style={styles.errorContainer}>
-        <Text style={styles.errorText}>Erro ao carregar os detalhes do vídeo.</Text>
+        <Text style={styles.errorText}>URL do vídeo não disponível.</Text>
         <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
           <Text style={styles.buttonText}>VOLTAR</Text>
         </TouchableOpacity>
@@ -45,104 +31,64 @@ export const VideoNameScreen = ({ navigation, route }) => {
   }
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>
-          Educa-<Text style={styles.span}>Net</Text>
-        </Text>
-        <Text style={styles.subtitle}>VIDEO NAME</Text>
-        <Text style={styles.description}>Descrição</Text>
-        <Text style={styles.text}>{videoData.description}</Text>
-      </View>
+    <View style={styles.container}>
+      <Text style={styles.title}>{videoTitle || 'Sem título disponível'}</Text>
+      <Text style={styles.description}>{videoDescription || 'Descrição não disponível'}</Text>
 
-      <View style={styles.videoContainer}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() =>
-            navigation.navigate('VideoPlayerScreen', { videoUrl: videoData.videoUrl })
-          }
-        >
-          <Text style={styles.buttonText}>ASSISTIR AO VÍDEO</Text>
-        </TouchableOpacity>
+      <TouchableOpacity style={styles.watchButton} onPress={openYouTube}>
+        <Text style={styles.watchButtonText}>ASSISTIR NO YOUTUBE</Text>
+      </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
-          <Text style={styles.buttonText}>RETORNAR PARA VIDEOS DO CURSO</Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
+      <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+        <Text style={styles.backButtonText}>VOLTAR</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
-export default VideoNameScreen;
-
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#002250',
     flex: 1,
-    padding: 10,
-  },
-  header: {
-    marginBottom: 30,
-  },
-  title: {
-    color: '#FFFFFF',
-    fontSize: 35,
-    fontWeight: 'bold',
-    position: 'absolute',
-    top: 25,
-    padding: 10,
-  },
-  span: {
-    color: '#00C2FF',
-  },
-  subtitle: {
-    fontSize: 25,
-    marginLeft: 20,
-    top: 80,
-    color: '#fff',
-    marginBottom: 1,
-    fontFamily: 'VT323_400Regular',
-  },
-  description: {
-    fontSize: 15,
-    marginLeft: 20,
-    top: 100,
-    color: '#fff',
-    marginBottom: 1,
-    fontFamily: 'VT323_400Regular',
-  },
-  text: {
-    top: 100,
-    marginLeft: 20,
-    fontSize: 20,
-    color: '#fff',
-  },
-  videoContainer: {
-    marginTop: 150,
+    backgroundColor: '#002250',
+    padding: 20,
     alignItems: 'center',
   },
-  button: {
+  title: {
+    fontSize: 24,
+    color: '#FFFFFF',
+    fontWeight: 'bold',
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  description: {
+    fontSize: 16,
+    color: '#FFFFFF',
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  watchButton: {
     marginTop: 20,
     paddingVertical: 10,
     paddingHorizontal: 20,
     backgroundColor: '#00C2FF',
     borderRadius: 10,
   },
-  buttonText: {
+  watchButtonText: {
     color: '#fff',
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: 'bold',
   },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#002250',
+  backButton: {
+    marginTop: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: '#1977F3',
+    borderRadius: 10,
   },
-  loadingText: {
-    marginTop: 10,
-    color: '#00C2FF',
+  backButtonText: {
+    color: '#fff',
     fontSize: 16,
+    fontWeight: 'bold',
   },
   errorContainer: {
     flex: 1,
@@ -155,4 +101,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: 20,
   },
+  button: {
+    marginTop: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: '#1977F3',
+    borderRadius: 10,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
 });
+
+export default VideoNameScreen;

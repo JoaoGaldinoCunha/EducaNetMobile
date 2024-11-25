@@ -20,6 +20,7 @@ import { TeacherEditVideoScreen } from './src/screens/Teacher/TeacherVideoScreen
 import TeacherEditCourseScreen from './src/screens/Teacher/TeacherCoursesScreen/TeacherEditCourseScreen';
 import TabNavigationUser from './src/navagations/TabNavigatorUser/index';
 import TabNavigationTeacher from './src/navagations/TabNavigatorTeacher/index';
+import VideoPlayerScreen from './src/screens/User/UserVideoScreen/VideoPlayerScreen'; 
 
 const Stack = createStackNavigator();
 
@@ -148,6 +149,15 @@ export default function App() {
         <Stack.Screen
           name="TeacherEditCourse"
           component={TeacherEditCourseScreen}
+          options={{
+            title: '',
+            headerTransparent: true,
+            headerShown: false,
+          }}
+        />
+                <Stack.Screen
+          name="VideoPlayerScreen" // Registro da tela de player de vídeo
+          component={VideoPlayerScreen}
           options={{
             title: '',
             headerTransparent: true,
