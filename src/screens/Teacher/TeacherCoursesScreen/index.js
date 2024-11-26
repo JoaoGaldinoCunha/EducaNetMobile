@@ -31,63 +31,58 @@ export const TeacherCourseScreen = ({ navigation }) => {
     fetchCourses();
   }, []);
 
+  // Função para criar um curso
+  const handleCreateCourse = async () => {
+    if (!courseName || !workload || !theme || !description) {
+      alert('Por favor, preencha todos os campos.');
+      return;
+    }
 
-// Função para criar um curso
-const handleCreateCourse = async () => {
-  if (!courseName || !workload || !theme || !description) {
-    alert('Por favor, preencha todos os campos.');
-    return;
-  }
+    // Estrutura correta dos dados
+    const courseData = {
+      courseName: courseName,
+      workload: parseInt(workload, 10),
+      courseClass: theme,
+      description: description,
+    };
 
-  // Estrutura correta dos dados
-  const courseData = {
-    courseName: courseName,
-    workload: parseInt(workload, 10),
-    courseClass: theme,
-    description: description,
+    try {
+      const response = await fetch('http://192.168.0.10:8080/course/coursesave', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(courseData),
+      });
+
+      // Verificar o status da resposta
+      const statusCode = response.status;
+      const contentType = response.headers.get('Content-Type');
+
+      let responseData;
+      if (contentType && contentType.includes('application/json')) {
+        responseData = await response.json();
+      } else {
+        responseData = await response.text();
+      }
+
+      if (statusCode === 201 || statusCode === 200) {
+        alert('Curso criado com sucesso!');
+        setCourseName('');
+        setWorkload('');
+        setTheme('');
+        setDescription('');
+        fetchCourses();
+      } else if (statusCode === 409) {
+        alert(responseData.message || 'Erro: Curso já existe. Escolha um nome diferente.');
+      } else {
+        alert(`Falha ao criar o curso: ${responseData.message || statusCode}`);
+      }
+    } catch (error) {
+      console.error('Erro ao criar o curso:', error);
+      alert('Ocorreu um erro ao criar o curso. Verifique sua conexão com a internet.');
+    }
   };
-  
-
-  try {
-    const response = await fetch('http://192.168.0.10:8080/course/coursesave', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(courseData),
-    });
-
-    // Verificar o status da resposta
-    const statusCode = response.status;
-    const contentType = response.headers.get('Content-Type');
-
-    let responseData;
-    if (contentType && contentType.includes('application/json')) {
-      responseData = await response.json();
-    } else {
-      responseData = await response.text();
-    }
-
-    if (statusCode === 201 || statusCode === 200) {
-      alert('Curso criado com sucesso!');
-      setCourseName('');
-      setWorkload('');
-      setTheme('');
-      setDescription('');
-      fetchCourses();
-    } else if (statusCode === 409) {
-      alert(responseData.message || 'Erro: Curso já existe. Escolha um nome diferente.');
-    } else {
-      alert(`Falha ao criar o curso: ${responseData.message || statusCode}`);
-    }
-  } catch (error) {
-    console.error('Erro ao criar o curso:', error);
-    alert('Ocorreu um erro ao criar o curso. Verifique sua conexão com a internet.');
-  }
-};
-
-  
-
 
   // Função para deletar um curso
   const handleDeleteCourse = async (courseId) => {
@@ -108,6 +103,35 @@ const handleCreateCourse = async () => {
     }
   };
 
+  // Função para editar um curso
+  const handleEditCourse = async (courseId, updatedCourseData) => {
+    try {
+      const response = await fetch(`http://192.168.0.10:8080/course/updateCourse/${courseId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedCourseData),
+      });
+
+      if (response.ok) {
+        // Atualize os dados na lista de cursos
+        setCourses((prevCourses) =>
+          prevCourses.map((course) =>
+            course.courseId === courseId ? { ...course, ...updatedCourseData } : course
+          )
+        );
+        alert('Curso atualizado com sucesso!');
+        navigation.goBack();  // Volta para a tela anterior (opcional)
+      } else {
+        alert('Falha ao atualizar o curso.');
+      }
+    } catch (error) {
+      console.error('Erro ao atualizar o curso:', error);
+      alert('Ocorreu um erro ao atualizar o curso.');
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Educa-<Text style={styles.span}>Net</Text></Text>
@@ -120,19 +144,19 @@ const handleCreateCourse = async () => {
               <View key={index} style={styles.containerCourse}>
                 <Text style={styles.courseName}>{course.courseName || 'Nome não disponível'}</Text>
                 <TouchableOpacity
-  style={styles.buttonEdit}
-  onPress={() =>
-    navigation.navigate('TeacherEditCourse', {
-      courseId: course.courseId,
-      courseName: course.courseName,
-      workload: course.workload,
-      theme: course.courseClass,
-      description: course.description,
-    })
-  }
->
-  <Text style={styles.buttonText}>EDITAR</Text>
-</TouchableOpacity>
+                  style={styles.buttonEdit}
+                  onPress={() =>
+                    navigation.navigate('TeacherEditCourse', {
+                      courseId: course.courseId,
+                      courseName: course.courseName,
+                      workload: course.workload,
+                      theme: course.courseClass,
+                      description: course.description,
+                    })
+                  }
+                >
+                  <Text style={styles.buttonText}>EDITAR</Text>
+                </TouchableOpacity>
 
                 <TouchableOpacity
                   style={styles.buttonDelete}
@@ -197,7 +221,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 60,
   },
-  
   span: {
     color: '#00C2FF',
   },
@@ -234,34 +257,39 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     padding: 10,
   },
-  conteinercreated: {
+  containerCreated: {
+    height: 300,
     width: '100%',
-    height: 350,
-    backgroundColor: "#00C2FF",
+    backgroundColor: '#00C2FF',
     borderRadius: 20,
     padding: 10,
-    position: 'fixed'
-
   },
-  titleconteinercreated: {
-    color: "#FFF",
+  titleContainerCreated: {
+    color: '#FFF',
     fontSize: 25,
-    marginBottom: 5
+    marginBottom: 10,
   },
   input: {
     backgroundColor: '#fff',
     borderRadius: 15,
     marginBottom: 10,
-    padding: 10,
+    padding: 5,
   },
   button: {
-    backgroundColor: '#1977F3',
-    borderRadius: 15,
-    padding: 20,
-    
+    backgroundColor: '#003366',
+    padding: 10,
+    borderRadius: 20,
+    marginTop: 1,
   },
   buttonText: {
     color: '#000',
+    fontSize: 15,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  noCoursesText: {
+    color: '#FFFFFF',
+    fontSize: 18,
   },
 });
 

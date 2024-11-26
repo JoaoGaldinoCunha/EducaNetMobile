@@ -20,7 +20,7 @@ export const TeacherEditCourseScreen = ({ route, navigation }) => {
     };
 
     try {
-      const response = await fetch(`http://192.168.0.13:8080/course/${courseId}`, {
+      const response = await fetch(`http://192.168.0.10:8080/course/${courseId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
