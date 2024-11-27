@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView, Alert } from 'react-native';
 
 export const TeacherVideoScreen = ({ navigation }) => {
   const [videoCourseName, setVideoCourseName] = useState('');
@@ -11,9 +11,11 @@ export const TeacherVideoScreen = ({ navigation }) => {
   // Função para buscar vídeos do backend
   const fetchVideos = async () => {
     try {
-      const response = await fetch('http://192.168.0.17:8081/allVideoCourses'); 
+      const response = await fetch('http://192.168.0.17:8080/allVideoCourses');
+      if (!response.ok) {
+        throw new Error(`Erro na requisição: ${response.status}`);
+      }
       const data = await response.json();
-      console.log('Dados recebidos:', data);
       if (Array.isArray(data)) {
         setVideos(data);
       } else {
@@ -22,19 +24,23 @@ export const TeacherVideoScreen = ({ navigation }) => {
       }
     } catch (error) {
       console.error('Erro ao buscar vídeos:', error);
-      alert('Não foi possível carregar os vídeos.');
+      Alert.alert('Erro', 'Não foi possível carregar os vídeos.');
     }
   };
 
-  // UseEffect para buscar vídeos quando a tela for carregada
+  // Atualiza os vídeos quando a tela for focada
   useEffect(() => {
-    fetchVideos();
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      fetchVideos();
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   // Função para criar um vídeo
   const handleCreateVideo = async () => {
     if (!videoCourseName || !videoCourseUrlId || !courseId || !videoCourseDescription) {
-      alert('Por favor, preencha todos os campos.');
+      Alert.alert('Atenção', 'Por favor, preencha todos os campos.');
       return;
     }
 
@@ -54,52 +60,53 @@ export const TeacherVideoScreen = ({ navigation }) => {
         body: JSON.stringify(videoData),
       });
 
-      const statusCode = response.status;
       const responseData = await response.text();
 
-      if (statusCode === 201 || statusCode === 200) {
-        alert(responseData || 'Vídeo criado com sucesso!');
+      if (response.ok) {
+        Alert.alert('Sucesso', responseData || 'Vídeo criado com sucesso!');
         setVideoCourseName('');
         setVideoCourseUrlId('');
         setCourseId('');
         setVideoCourseDescription('');
         fetchVideos();
       } else {
-        alert(`Erro ao criar o vídeo: ${responseData || statusCode}`);
+        Alert.alert('Erro', `Erro ao criar o vídeo: ${responseData || response.status}`);
       }
     } catch (error) {
       console.error('Erro ao criar o vídeo:', error);
-      alert('Ocorreu um erro ao criar o vídeo. Verifique sua conexão com a internet.');
+      Alert.alert('Erro', 'Ocorreu um erro ao criar o vídeo. Verifique sua conexão com a internet.');
     }
   };
 
   // Função para deletar um vídeo
   const handleDeleteVideo = async (videoId) => {
     try {
-      const response = await fetch(`http://192.168.0.10:8081/videoCourse/{id}`, {
+      const response = await fetch(`http://192.168.0.17:8080/videoCourse/${videoId}`, {
         method: 'DELETE',
       });
 
       if (response.ok) {
-        alert('Vídeo deletado com sucesso!');
+        Alert.alert('Sucesso', 'Vídeo deletado com sucesso!');
         fetchVideos();
       } else {
-        alert(`Falha ao deletar o vídeo: ${response.status}`);
+        Alert.alert('Erro', `Falha ao deletar o vídeo: ${response.status}`);
       }
     } catch (error) {
       console.error('Erro ao deletar o vídeo:', error);
-      alert('Ocorreu um erro ao deletar o vídeo.');
+      Alert.alert('Erro', 'Ocorreu um erro ao deletar o vídeo.');
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Educa-<Text style={styles.span}>Net</Text></Text>
+      <Text style={styles.title}>
+        Educa-<Text style={styles.span}>Net</Text>
+      </Text>
       <View style={styles.containerItems}>
         {/* Seção de Vídeos Criados */}
         <Text style={styles.titleVideos}>Vídeos Criados</Text>
         <ScrollView style={styles.containerVideos}>
-          {videos && videos.length > 0 ? (
+          {videos.length > 0 ? (
             videos.map((video, index) => (
               <View key={index} style={styles.containerVideo}>
                 <Text style={styles.videoName}>{video.videoCourseName || 'Nome não disponível'}</Text>
@@ -167,7 +174,6 @@ export const TeacherVideoScreen = ({ navigation }) => {
   );
 };
 
-
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#002250',
@@ -218,6 +224,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   containerCreated: {
+    height: 300,
     width: '100%',
     backgroundColor: '#00C2FF',
     borderRadius: 20,
@@ -232,15 +239,22 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 15,
     marginBottom: 10,
-    padding: 10,
+    padding: 5,
   },
   button: {
-    backgroundColor: '#1977F3',
-    borderRadius: 15,
-    padding: 20,
+    backgroundColor: '#003366',
+    padding: 10,
+    borderRadius: 20,
+    marginTop: 1,
   },
   buttonText: {
     color: '#000',
+    fontSize: 15,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  noVideosText: {
+    color: '#FFF',
     textAlign: 'center',
   },
 });

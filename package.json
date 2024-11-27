@@ -21,7 +21,7 @@
     "react": "18.2.0",
     "react-native": "^0.74.5",
     "react-native-video": "^6.8.1",
-    "react-native-webview": "^13.8.6",
+    "react-native-webview": "^13.12.4",
     "react-native-youtube-iframe": "^2.3.0"
   },
   "devDependencies": {

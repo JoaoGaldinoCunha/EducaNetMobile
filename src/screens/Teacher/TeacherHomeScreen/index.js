@@ -17,7 +17,7 @@ const TeacherHomeScreen = ({ navigation }) => {
         </Text>
       </View>
       <View style={styles.imageContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate('PROFILIE')}>
+        <TouchableOpacity onPress={() => navigation.navigate('PRATICING')}>
           <Image style={styles.image1} source={imagehome1} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('VIDEO')}>

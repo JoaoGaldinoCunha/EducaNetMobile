@@ -36,7 +36,7 @@ export const VideoNameScreen = ({ route, navigation }) => {
       <Text style={styles.description}>{videoDescription || 'Descrição não disponível'}</Text>
 
       <TouchableOpacity style={styles.watchButton} onPress={openYouTube}>
-        <Text style={styles.watchButtonText}>ASSISTIR NO YOUTUBE</Text>
+        <Text style={styles.watchButtonText}>ASSISTIR VIDEO AULA</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
